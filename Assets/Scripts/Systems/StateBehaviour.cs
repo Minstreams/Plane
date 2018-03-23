@@ -41,5 +41,6 @@ public class StateBehaviour : MonoBehaviour
     protected virtual void Start()
     {
         StateCheck();
+        GameSystem.stateSystem.stateCheck += StateCheck;
     }
 }
