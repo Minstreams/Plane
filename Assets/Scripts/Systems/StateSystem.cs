@@ -62,4 +62,9 @@ public class StateSystem : MonoBehaviour
         if (stateCheck != null) stateCheck();
     }
 
+    [ContextMenu("TestCheck")]
+    private void TestCheck()
+    {
+        if (stateCheck != null) stateCheck();
+    }
 }

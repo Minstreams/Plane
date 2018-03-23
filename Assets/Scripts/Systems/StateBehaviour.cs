@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 封装的Behaviour
 /// </summary>
-public class StateBehaviour : MonoBehaviour
+public abstract class StateBehaviour : MonoBehaviour
 {
     /// <summary>
     /// 激活状态
