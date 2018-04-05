@@ -9,6 +9,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(AudioSystem))]
 [RequireComponent(typeof(StateSystem))]
+[RequireComponent(typeof(SceneSystem))]
 public class GameSystem : MonoBehaviour
 {
     //参数属性----------------------------
@@ -39,6 +40,12 @@ public class GameSystem : MonoBehaviour
     /// 流程控制系统
     /// </summary>
     public static StateSystem stateSystem { get { return system.GetComponent<StateSystem>(); } }
+
+    /// <summary>
+    /// 场景管理系统
+    /// </summary>
+    public static SceneSystem sceneSystem { get { return system.GetComponent<SceneSystem>(); } }
+
 
 
 
