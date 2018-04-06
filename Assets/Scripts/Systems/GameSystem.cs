@@ -7,9 +7,11 @@ using UnityEngine;
 /// </summary>
 [DisallowMultipleComponent]
 
+[RequireComponent(typeof(RunningSystem))]
 [RequireComponent(typeof(AudioSystem))]
 [RequireComponent(typeof(StateSystem))]
 [RequireComponent(typeof(SceneSystem))]
+[RequireComponent(typeof(MenuSystem))]
 public class GameSystem : MonoBehaviour
 {
     //参数属性----------------------------
@@ -32,12 +34,17 @@ public class GameSystem : MonoBehaviour
     public static GameSystem system = null;
 
     /// <summary>
+    /// 流程控制系统
+    /// </summary>
+    public static RunningSystem runningSystem { get { return system.GetComponent<RunningSystem>(); } }
+
+    /// <summary>
     /// 声音系统
     /// </summary>
     public static AudioSystem audioSystem { get { return system.GetComponent<AudioSystem>(); } }
    
     /// <summary>
-    /// 流程控制系统
+    /// 状态系统
     /// </summary>
     public static StateSystem stateSystem { get { return system.GetComponent<StateSystem>(); } }
 
@@ -45,6 +52,11 @@ public class GameSystem : MonoBehaviour
     /// 场景管理系统
     /// </summary>
     public static SceneSystem sceneSystem { get { return system.GetComponent<SceneSystem>(); } }
+
+    /// <summary>
+    /// 菜单系统
+    /// </summary>
+    public static MenuSystem menuSystem { get { return system.GetComponent<MenuSystem>(); } }
 
 
 
@@ -57,5 +69,10 @@ public class GameSystem : MonoBehaviour
             Debug.LogError("不允许出现多个GameSystem！");
         }
         system = this;
+    }
+
+    private void Start()
+    {
+        runningSystem.StartRunning();
     }
 }

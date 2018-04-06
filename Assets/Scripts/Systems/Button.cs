@@ -74,4 +74,13 @@ public abstract class Button : StateBehaviour
     /// 按钮按下时调用
     /// </summary>
     protected abstract void OnBottonDown();
+
+    /// <summary>
+    /// 设置完毕
+    /// </summary>
+    [ContextMenu("设置完毕")]
+    private void SetUpOver()
+    {
+        GetComponent<SpriteRenderer>().sprite = spriteUp;
+    }
 }

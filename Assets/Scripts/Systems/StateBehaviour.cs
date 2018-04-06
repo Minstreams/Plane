@@ -14,6 +14,20 @@ public abstract class StateBehaviour : MonoBehaviour
     [SerializeField]
     private StateSystem.GameState activeState;
 
+    private static float fixedDeltaTime = 1;
+    /// <summary>
+    /// deltaTime修正，用系数赋值（默认1），取值的时候直接代替deltaTime
+    /// </summary>
+    public static float FixedDeltaTime{
+        get{
+            return fixedDeltaTime * Time.deltaTime;
+        }
+        set
+        {
+            fixedDeltaTime = value;
+        }
+    }
+
     [ContextMenu("StateCheck")]
     /// <summary>
     /// 检查状态并自我激活/取消激活
@@ -25,7 +39,7 @@ public abstract class StateBehaviour : MonoBehaviour
             OnCheck(!this.enabled);
             this.enabled = !this.enabled;
         }
-        print("checked");
+        //print("checked");
     }
 
     /// <summary>

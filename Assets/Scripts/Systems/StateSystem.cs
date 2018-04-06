@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 流程状态系统（状态机）
+/// 状态系统（状态机）
 /// </summary>
 [DisallowMultipleComponent]
 public class StateSystem : MonoBehaviour
@@ -14,7 +14,7 @@ public class StateSystem : MonoBehaviour
     {
 
     }
-    [Header("【流程状态系统】")]
+    [Header("【状态系统】")]
     [Header("参数设置：")]
     public Setting setting;
 
