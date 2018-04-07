@@ -26,13 +26,28 @@ public class GameSystem : MonoBehaviour
     [Header("参数设置：")]
     public Setting setting;
 
+    private void Reset()
+    {
+        gameObject.tag = "GameSystem";
+    }
 
 
     //系统实例----------------------------
+    private static GameSystem systemInstance = null;
     /// <summary>
     /// 自身实例
     /// </summary>
-    public static GameSystem system = null;
+    public static GameSystem system
+    {
+        get
+        {
+            if (systemInstance == null)
+            {
+                systemInstance = GameObject.FindGameObjectWithTag("GameSystem").GetComponent<GameSystem>();
+            }
+            return systemInstance;
+        }
+    }
 
     /// <summary>
     /// 流程控制系统
@@ -66,15 +81,6 @@ public class GameSystem : MonoBehaviour
 
 
     //方法--------------------------------
-    private void Awake()
-    {
-        if (system != null)
-        {
-            Debug.LogError("不允许出现多个GameSystem！");
-        }
-        system = this;
-    }
-
     private void Start()
     {
         runningSystem.StartRunning();

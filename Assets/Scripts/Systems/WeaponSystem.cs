@@ -26,6 +26,15 @@ public class WeaponSystem : MonoBehaviour
     {
         test1
     }
+    [System.Serializable]
+    private struct WeaponBottomPrefabList
+    {
+        public GameObject test1;
+    }
+    [Header("底座Prefab")]
+    [SerializeField]
+    private WeaponBottomPrefabList weaponBottomPrefabList;
+
 
     /// <summary>
     /// 主武器型号
@@ -34,6 +43,15 @@ public class WeaponSystem : MonoBehaviour
     {
         test1
     }
+    [System.Serializable]
+    private struct MainWeaponPrefabList
+    {
+        public GameObject test1;
+    }
+    [Header("主武器Prefab")]
+    [SerializeField]
+    private MainWeaponPrefabList mainWeaponPrefabList;
+
 
     /// <summary>
     /// 副武器型号
@@ -42,7 +60,14 @@ public class WeaponSystem : MonoBehaviour
     {
         test1
     }
-
+    [System.Serializable]
+    private struct AccessaryWeaponPrefabList
+    {
+        public GameObject test1;
+    }
+    [Header("副武器Prefab")]
+    [SerializeField]
+    private AccessaryWeaponPrefabList accessaryWeaponPrefabList;
 
 
     //方法--------------------------------
@@ -51,21 +76,39 @@ public class WeaponSystem : MonoBehaviour
     /// </summary>
     public GameObject getPrefab(WeaponBottomEnum weaponBottomName)
     {
-        throw new System.NotImplementedException();
+        switch (weaponBottomName)
+        {
+            case WeaponBottomEnum.test1:
+                return weaponBottomPrefabList.test1;
+            default:
+                return null;
+        }
     }
     /// <summary>
     /// 获取主武器Prefab
     /// </summary>
     public GameObject getPrefab(MainWeaponEnum mainWeaponName)
     {
-        throw new System.NotImplementedException();
+        switch (mainWeaponName)
+        {
+            case MainWeaponEnum.test1:
+                return mainWeaponPrefabList.test1;
+            default:
+                return null;
+        }
     }
     /// <summary>
     /// 获取副武器Prefab
     /// </summary>
     public GameObject getPrefab(AccessaryWeaponEnum accessaryWeaponName)
     {
-        throw new System.NotImplementedException();
+        switch (accessaryWeaponName)
+        {
+            case AccessaryWeaponEnum.test1:
+                return accessaryWeaponPrefabList.test1;
+            default:
+                return null;
+        }
     }
 
 }

@@ -48,6 +48,11 @@ public class BulletTimeSystem : MonoBehaviour
         timeScale = Mathf.Clamp01(scale);
     }
 
+
+
+
+
+#if UNITY_EDITOR
     //调试方法----------------------------
     [Header("时间拉伸系数")]
     [SerializeField]
@@ -59,4 +64,5 @@ public class BulletTimeSystem : MonoBehaviour
     {
         SetTimeScale(timeScaleDebug);
     }
+#endif
 }

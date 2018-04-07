@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 使用鼠标移动控制旋转
 /// </summary>
-public class MouseRotater : StateBehaviour
+public class MouseRotater : MonoBehaviour
 {
     //参数---------------------------------
     [SerializeField]
