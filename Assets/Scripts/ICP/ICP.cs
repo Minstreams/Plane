@@ -164,6 +164,7 @@ public class ICP : BulletTimeFixedBehaviour
     }
 
 
+    //---------------------------------------------
     protected override void BulletUpdate()
     {
         weaponBottom.RotateAngle(hAngle, vAngle);
