@@ -7,20 +7,27 @@ using UnityEngine;
 /// </summary>
 [DisallowMultipleComponent]
 [AddComponentMenu("Combat Unit/ICP")]
-public class ICP : MonoBehaviour
+public class ICP : BulletTimeFixedBehaviour
 {
-    //测试用？？-----------------------------------
+    //型号记录-------------------------------------
+    [ContextMenuItem("LoadWeaponBottom", "LoadWeaponBottom")]
     [SerializeField]
     private WeaponSystem.WeaponBottomEnum weaponBottomEnum;
+    [ContextMenuItem("LoadMainWeapon", "LoadMainWeapon")]
     [SerializeField]
     private WeaponSystem.MainWeaponEnum mainWeaponEnum;
+    [ContextMenuItem("LoadAccessaryWeapon", "LoadAccessaryWeapon")]
     [SerializeField]
     private WeaponSystem.AccessaryWeaponEnum accessaryWeaponEnum;
 
-    //逻辑组成-------------------------------------
+
+
+    //结构组成-------------------------------------
     private WeaponBottom weaponBottom;
     private MainWeapon mainWeapon;
     private AccessaryWeapon accessaryWeapon;
+
+
 
     //加载武器-------------------------------------
     /// <summary>
@@ -29,6 +36,13 @@ public class ICP : MonoBehaviour
     [ContextMenu("加载武器")]
     public void Load()
     {
+        //清空子物体
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            DestroyImmediate(transform.GetChild(i).gameObject);
+        }
+
+        //加载
         LoadWeaponBottom();
         LoadMainWeapon();
         LoadAccessaryWeapon();
@@ -104,17 +118,39 @@ public class ICP : MonoBehaviour
     }
 
 
+
+    //参数----------------------------------------
+    [SerializeField]
+    [Range(10, 90)]
+    [Header("上仰角限制")]
+    private float upAngleLimit = 90;
+    [SerializeField]
+    [Range(10, 90)]
+    [Header("下俯角限制")]
+    private float downAngleLimit = 30;
+
+    /// <summary>
+    /// 水平旋转角
+    /// </summary>
+    private float hAngle = 0;
+    /// <summary>
+    /// 垂直旋转角
+    /// </summary>
+    private float vAngle = 0;
+
+
     //控制方法------------------------------------
     /// <summary>
     /// 转动视角
     /// </summary>
-    /// <param name="horizontalQuaternion">水平四元数</param>
-    /// <param name="verticalQuaternion">垂直四元数</param>
-    public void Rotate(Quaternion horizontalQuaternion, Quaternion verticalQuaternion)
+    /// <param name="hAngle">水平分量变化量</param>
+    /// <param name="vAngle">垂直分量变化量</param>
+    public void RotateAngle(float hDeltaAngle, float vDeltaAngle)
     {
-        weaponBottom.Rotate(horizontalQuaternion, verticalQuaternion);
-        mainWeapon.Rotate(horizontalQuaternion, verticalQuaternion);
-        accessaryWeapon.Rotate(horizontalQuaternion, verticalQuaternion);
+        hAngle += hDeltaAngle;
+        vAngle = Mathf.Clamp(vAngle + vDeltaAngle, -downAngleLimit, upAngleLimit);
+
+        mainWeapon.corePosition.rotation = Quaternion.Euler(-vAngle, hAngle, 0);
     }
 
     /// <summary>
@@ -127,4 +163,19 @@ public class ICP : MonoBehaviour
         weaponBottom.Move(h, v);
     }
 
+
+    protected override void BulletUpdate()
+    {
+        weaponBottom.RotateAngle(hAngle, vAngle);
+        mainWeapon.RotateAngle(hAngle, vAngle);
+        accessaryWeapon.RotateAngle(hAngle, vAngle);
+    }
+
+    private void Awake()
+    {
+        //定位子物体中的武器
+        weaponBottom = GetComponentInChildren<WeaponBottom>();
+        mainWeapon = GetComponentInChildren<MainWeapon>();
+        accessaryWeapon = GetComponentInChildren<AccessaryWeapon>();
+    }
 }

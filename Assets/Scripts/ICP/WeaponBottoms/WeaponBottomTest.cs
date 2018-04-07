@@ -6,6 +6,8 @@ using UnityEngine;
 [AddComponentMenu("WeaponBottom/Test")]
 public class WeaponBottomTest : WeaponBottom
 {
+    public Transform body;
+
     public override void LaunchMode(bool state)
     {
         throw new NotImplementedException();
@@ -16,8 +18,8 @@ public class WeaponBottomTest : WeaponBottom
         throw new NotImplementedException();
     }
 
-    public override void Rotate(Quaternion horizontalQuaternion, Quaternion verticalQuaternion)
+    protected override void Rotate(Quaternion hRotation, Quaternion vRotation)
     {
-        
+        body.localRotation = hRotation;
     }
 }

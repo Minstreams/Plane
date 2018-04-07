@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 武器底座
 /// </summary>
-public abstract class WeaponBottom : MonoBehaviour
+public abstract class WeaponBottom : ICPUnit
 {
     /// <summary>
     /// 主武器位置
@@ -13,12 +13,6 @@ public abstract class WeaponBottom : MonoBehaviour
     public Transform mainWeaponPosition;
 
     //控制方法--------------------------
-    /// <summary>
-    /// 转动视角
-    /// </summary>
-    /// <param name="horizontalQuaternion">水平四元数</param>
-    /// <param name="verticalQuaternion">垂直四元数</param>
-    public abstract void Rotate(Quaternion horizontalQuaternion, Quaternion verticalQuaternion);
 
     /// <summary>
     /// 移动控制
@@ -32,6 +26,5 @@ public abstract class WeaponBottom : MonoBehaviour
     /// </summary>
     /// <param name="state">true代表开启攻城模式，false代表关闭攻城模式</param>
     public abstract void LaunchMode(bool state);
-
 
 }

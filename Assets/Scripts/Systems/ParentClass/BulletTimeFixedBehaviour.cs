@@ -9,17 +9,27 @@ using UnityEngine;
 public abstract class BulletTimeFixedBehaviour : BulletTimeBehaviour
 {
     //实现----------------------------------
-    private float TimeInterval = GameSystem.bulletTimeSystem.setting.BulletUpdateTimeInterVal;
     private float timer = 0;
+    /// <summary>
+    /// 固定DeltaTime
+    /// </summary>
+    protected sealed override float DeltaTime
+    {
+        get
+        {
+            return BulletTimeSystem.BulletUpdateTimeInterVal;
+        }
+    }
+
     /// <summary>
     /// 密封Update
     /// </summary>
     protected sealed override void Update()
     {
-        timer += DeltaTime;
-        while (timer > TimeInterval)
+        timer += BulletTimeSystem.TimeScale * Time.deltaTime;
+        while (timer > BulletTimeSystem.BulletUpdateTimeInterVal)
         {
-            timer -= TimeInterval;
+            timer -= BulletTimeSystem.BulletUpdateTimeInterVal;
             BulletUpdate();
         }
     }

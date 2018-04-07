@@ -13,20 +13,16 @@ public class BulletTimeSystem : MonoBehaviour
     [System.Serializable]
     public struct Setting
     {
-        /// <summary>
-        /// 每帧时间间隔默认值
-        /// </summary>
-        [Header("每帧时间间隔默认值")]
-        public float BulletUpdateTimeInterVal;
+        
     }
     [Header("【子弹时间系统】")]
     [Header("参数设置：")]
     public Setting setting;
 
-    private void Reset()
-    {
-        setting.BulletUpdateTimeInterVal = 0.02f;
-    }
+    /// <summary>
+    /// 每帧时间间隔默认值(s)
+    /// </summary>
+    public const float BulletUpdateTimeInterVal = 0.02f;
 
     //属性--------------------------------
     private static float timeScale = 1.0f;
