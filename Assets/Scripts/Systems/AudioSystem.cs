@@ -26,13 +26,18 @@ public class AudioSystem : MonoBehaviour
         [SerializeField]
         [Header("音乐淡出时间")]
         [Range(0.1f, 2.0f)]
-        private float musicFadeOutTime;
+        public float musicFadeOutTime;
     }
     [Header("【声音系统】")]
     [Header("参数设置：")]
     public Setting setting;
 
-
+    private void Reset()
+    {
+        setting.musicVolumn = 1.0f;
+        setting.soundVolumn = 1.0f;
+        setting.musicFadeOutTime = 1.0f;
+    }
 
     //属性--------------------------------
     /// <summary>

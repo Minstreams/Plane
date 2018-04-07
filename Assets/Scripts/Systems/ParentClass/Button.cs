@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(SpriteRenderer))]
 [DisallowMultipleComponent]
-public abstract class Button : StateBehaviour
+public abstract class Button : MonoBehaviour
 {
     //属性--------------------------------
     [Header("【按钮组件】")]
@@ -22,19 +22,8 @@ public abstract class Button : StateBehaviour
 
 
     //方法--------------------------------
-    /// <summary>
-    /// 检查状态时被调用
-    /// </summary>
-    /// <param name="result">检查结果激活与否</param>
-    protected sealed override void OnCheck(bool result)
+    private void Start()
     {
-        gameObject.SetActive(result);
-    }
-
-    protected override void Start()
-    {
-        base.Start();
-
         //检测
         if(spriteDown == null || spriteOver == null || spriteUp == null)
         {

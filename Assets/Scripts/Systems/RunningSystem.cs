@@ -95,7 +95,6 @@ public class RunningSystem : MonoBehaviour
 
         //开始场景-------------------------------------
         GameSystem.sceneSystem.LoadScene("StartScene");
-        GameSystem.stateSystem.ChangeStateTo(StateSystem.GameState.StartMenu);
 
         while (true)
         {
@@ -112,7 +111,6 @@ public class RunningSystem : MonoBehaviour
 
         //游戏场景-------------------------------------
         GameSystem.sceneSystem.LoadScene("Game0");
-        GameSystem.stateSystem.ChangeStateTo(StateSystem.GameState.Outside);
 
         while (true)
         {

@@ -9,9 +9,10 @@ using UnityEngine;
 
 [RequireComponent(typeof(RunningSystem))]
 [RequireComponent(typeof(AudioSystem))]
-[RequireComponent(typeof(StateSystem))]
 [RequireComponent(typeof(SceneSystem))]
+[RequireComponent(typeof(BulletTimeSystem))]
 [RequireComponent(typeof(MenuSystem))]
+[RequireComponent(typeof(WeaponSystem))]
 public class GameSystem : MonoBehaviour
 {
     //参数属性----------------------------
@@ -42,11 +43,6 @@ public class GameSystem : MonoBehaviour
     /// 声音系统
     /// </summary>
     public static AudioSystem audioSystem { get { return system.GetComponent<AudioSystem>(); } }
-   
-    /// <summary>
-    /// 状态系统
-    /// </summary>
-    public static StateSystem stateSystem { get { return system.GetComponent<StateSystem>(); } }
 
     /// <summary>
     /// 场景管理系统
@@ -54,11 +50,19 @@ public class GameSystem : MonoBehaviour
     public static SceneSystem sceneSystem { get { return system.GetComponent<SceneSystem>(); } }
 
     /// <summary>
+    /// 子弹时间系统
+    /// </summary>
+    public static BulletTimeSystem bulletTimeSystem { get { return system.GetComponent<BulletTimeSystem>(); } }
+
+    /// <summary>
     /// 菜单系统
     /// </summary>
     public static MenuSystem menuSystem { get { return system.GetComponent<MenuSystem>(); } }
 
-
+    /// <summary>
+    /// 武器系统
+    /// </summary>
+    public static WeaponSystem weaponSystem { get { return system.GetComponent<WeaponSystem>(); } }
 
 
     //方法--------------------------------
