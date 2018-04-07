@@ -25,7 +25,7 @@ public abstract class Button : MonoBehaviour
     private void Start()
     {
         //检测
-        if(spriteDown == null || spriteOver == null || spriteUp == null)
+        if (spriteDown == null || spriteOver == null || spriteUp == null)
         {
             Debug.LogError(gameObject + "的Sprite没有赋值！");
             return;
@@ -64,6 +64,7 @@ public abstract class Button : MonoBehaviour
     /// </summary>
     protected abstract void OnBottonDown();
 
+#if UNITY_EDITOR
     /// <summary>
     /// 设置完毕
     /// </summary>
@@ -72,4 +73,5 @@ public abstract class Button : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().sprite = spriteUp;
     }
+#endif
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 [DisallowMultipleComponent]
 [RequireComponent(typeof(ICP))]
-public class Core : MonoBehaviour
+public abstract class Core : MonoBehaviour
 {
     protected ICP theICP { get { return GetComponent<ICP>(); } }
 
