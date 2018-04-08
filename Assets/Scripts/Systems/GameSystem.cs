@@ -33,52 +33,138 @@ public class GameSystem : MonoBehaviour
 
 
     //系统实例----------------------------
-    private static GameSystem systemInstance = null;
     /// <summary>
-    /// 自身实例
+    /// 自身实例(这样写保证编辑器模式下也能调用)
     /// </summary>
     public static GameSystem system
     {
         get
         {
-            if (systemInstance == null)
+            if (system == null)
             {
-                systemInstance = GameObject.FindGameObjectWithTag("GameSystem").GetComponent<GameSystem>();
+                system = GameObject.FindGameObjectWithTag("GameSystem").GetComponent<GameSystem>();
             }
-            return systemInstance;
+            return system;
+        }
+        private set
+        {
+            system = value;
         }
     }
 
     /// <summary>
     /// 流程控制系统
     /// </summary>
-    public static RunningSystem runningSystem { get { return system.GetComponent<RunningSystem>(); } }
+    public static RunningSystem runningSystem
+    {
+        get
+        {
+            if (runningSystem == null)
+            {
+                runningSystem = system.GetComponent<RunningSystem>();
+            }
+            return runningSystem;
+        }
+        private set
+        {
+            runningSystem = value;
+        }
+    }
 
     /// <summary>
     /// 声音系统
     /// </summary>
-    public static AudioSystem audioSystem { get { return system.GetComponent<AudioSystem>(); } }
+    public static AudioSystem audioSystem
+    {
+        get
+        {
+            if (audioSystem == null)
+            {
+                audioSystem = system.GetComponent<AudioSystem>();
+            }
+            return audioSystem;
+        }
+        private set
+        {
+            audioSystem = value;
+        }
+    }
 
     /// <summary>
     /// 场景管理系统
     /// </summary>
-    public static SceneSystem sceneSystem { get { return system.GetComponent<SceneSystem>(); } }
+    public static SceneSystem sceneSystem
+    {
+        get
+        {
+            if (sceneSystem == null)
+            {
+                sceneSystem = system.GetComponent<SceneSystem>();
+            }
+            return sceneSystem;
+        }
+        private set
+        {
+            sceneSystem = value;
+        }
+    }
 
     /// <summary>
     /// 子弹时间系统
     /// </summary>
-    public static BulletTimeSystem bulletTimeSystem { get { return system.GetComponent<BulletTimeSystem>(); } }
+    public static BulletTimeSystem bulletTimeSystem
+    {
+        get
+        {
+            if (bulletTimeSystem == null)
+            {
+                bulletTimeSystem = system.GetComponent<BulletTimeSystem>();
+            }
+            return bulletTimeSystem;
+        }
+        private set
+        {
+            bulletTimeSystem = value;
+        }
+    }
 
     /// <summary>
     /// 菜单系统
     /// </summary>
-    public static MenuSystem menuSystem { get { return system.GetComponent<MenuSystem>(); } }
+    public static MenuSystem menuSystem
+    {
+        get
+        {
+            if (menuSystem == null)
+            {
+                menuSystem = system.GetComponent<MenuSystem>();
+            }
+            return menuSystem;
+        }
+        private set
+        {
+            menuSystem = value;
+        }
+    }
 
     /// <summary>
     /// 武器系统
     /// </summary>
-    public static WeaponSystem weaponSystem { get { return system.GetComponent<WeaponSystem>(); } }
-
+    public static WeaponSystem weaponSystem
+    {
+        get
+        {
+            if (weaponSystem == null)
+            {
+                weaponSystem = system.GetComponent<WeaponSystem>();
+            }
+            return weaponSystem;
+        }
+        private set
+        {
+            weaponSystem = value;
+        }
+    }
 
     //方法--------------------------------
     private void Start()

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 武器父类
+/// 武器接口
 /// </summary>
-public abstract class Weapon : ICPUnit
+public interface Weapon
 {
     /// <summary>
     /// 开炮
     /// </summary>
-    protected abstract void Launch();
+    void Launch();
 }

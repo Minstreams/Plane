@@ -7,10 +7,16 @@ using UnityEngine;
 /// </summary>
 public abstract class WeaponBottom : ICPUnit
 {
+    //通用部署代码-----------------------
     /// <summary>
     /// 主武器位置
     /// </summary>
+    [Header("【底座结构】")]
     public Transform mainWeaponPosition;
+
+
+
+
 
     //控制方法--------------------------
 

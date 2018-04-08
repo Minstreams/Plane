@@ -6,10 +6,38 @@ using UnityEngine;
 [AddComponentMenu("AccessaryWeapon/Test")]
 public class AccessaryWeaponTest : AccessaryWeapon
 {
+    //参数----------------------------------
+    [System.Serializable]
+    public struct OtherParameters
+    {
+
+    }
+
+    private OtherParameters parameters { get { return GameSystem.weaponSystem.accessaryWeaponList.test1.otherParameters; } }
+    protected override RotateParameters rotateParameters
+    {
+        get
+        {
+            return GameSystem.weaponSystem.accessaryWeaponList.test1.rotateParameters;
+        }
+    }
+
+
+
+
+
+    //结构----------------------------------
     public Transform bodyL;
     public Transform bodyR;
 
-    protected override void Launch()
+
+
+
+
+
+
+    //实现----------------------------------
+    public override void Launch()
     {
         throw new NotImplementedException();
     }

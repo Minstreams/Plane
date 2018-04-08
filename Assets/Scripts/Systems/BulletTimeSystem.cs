@@ -24,6 +24,8 @@ public class BulletTimeSystem : MonoBehaviour
     /// </summary>
     public const float BulletUpdateTimeInterVal = 0.02f;
 
+    public const float OneDividedBulletUpdateTimeInterVal = 1.0f / BulletUpdateTimeInterVal;
+
     //属性--------------------------------
     private static float timeScale = 1.0f;
     /// <summary>

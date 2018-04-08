@@ -6,10 +6,36 @@ using UnityEngine;
 [AddComponentMenu("MainWeapon/Test1")]
 public class MainWeaponTest1 : MainWeapon
 {
+    //参数----------------------------------
+    [System.Serializable]
+    public struct OtherParameters
+    {
+
+    }
+
+    private OtherParameters parameters { get { return GameSystem.weaponSystem.mainWeaponList.test1.otherParameters; } }
+    protected override RotateParameters rotateParameters
+    {
+        get
+        {
+            return GameSystem.weaponSystem.mainWeaponList.test1.rotateParameters;
+        }
+    }
+
+
+
+
+
+    //结构----------------------------------
     public Transform hBody;
     public Transform vBody;
 
-    protected override void Launch()
+
+
+
+
+    //实现----------------------------------
+    public override void Launch()
     {
         throw new NotImplementedException();
     }

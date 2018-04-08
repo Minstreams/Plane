@@ -20,20 +20,39 @@ public class WeaponSystem : MonoBehaviour
 
     //属性--------------------------------
     /// <summary>
+    /// 参数结构
+    /// </summary>
+    /// <typeparam name="T">其它参数类型</typeparam>
+    [System.Serializable]
+    public class ParametersData<OtherParameters>
+    {
+        public GameObject prefab;
+        public ICPUnit.RotateParameters rotateParameters;
+        public OtherParameters otherParameters;
+    }
+
+    /// <summary>
     /// 底座型号
     /// </summary>
     public enum WeaponBottomEnum
     {
         test1
     }
+
+    //序列化列表
     [System.Serializable]
-    private struct WeaponBottomPrefabList
+    public class ParameterTest1 : ParametersData<WeaponBottomTest.OtherParameters> { }
+
+
+    [System.Serializable]
+    public struct WeaponBottomList
     {
-        public GameObject test1;
+        public ParameterTest1 test1;
     }
-    [Header("底座Prefab")]
-    [SerializeField]
-    private WeaponBottomPrefabList weaponBottomPrefabList;
+
+
+    [Header("底座参数")]
+    public WeaponBottomList weaponBottomList;
 
 
     /// <summary>
@@ -44,13 +63,13 @@ public class WeaponSystem : MonoBehaviour
         test1
     }
     [System.Serializable]
-    private struct MainWeaponPrefabList
+    public struct MainWeaponList
     {
-        public GameObject test1;
+        public ParametersData<MainWeaponTest1.OtherParameters> test1;
     }
-    [Header("主武器Prefab")]
+    [Header("主武器参数")]
     [SerializeField]
-    private MainWeaponPrefabList mainWeaponPrefabList;
+    public MainWeaponList mainWeaponList;
 
 
     /// <summary>
@@ -61,13 +80,13 @@ public class WeaponSystem : MonoBehaviour
         test1
     }
     [System.Serializable]
-    private struct AccessaryWeaponPrefabList
+    public struct AccessaryWeaponList
     {
-        public GameObject test1;
+        public ParametersData<AccessaryWeaponTest.OtherParameters> test1;
     }
-    [Header("副武器Prefab")]
+    [Header("副武器参数")]
     [SerializeField]
-    private AccessaryWeaponPrefabList accessaryWeaponPrefabList;
+    public AccessaryWeaponList accessaryWeaponList;
 
 
     //方法--------------------------------
@@ -79,7 +98,7 @@ public class WeaponSystem : MonoBehaviour
         switch (weaponBottomName)
         {
             case WeaponBottomEnum.test1:
-                return weaponBottomPrefabList.test1;
+                return weaponBottomList.test1.prefab;
             default:
                 return null;
         }
@@ -92,7 +111,7 @@ public class WeaponSystem : MonoBehaviour
         switch (mainWeaponName)
         {
             case MainWeaponEnum.test1:
-                return mainWeaponPrefabList.test1;
+                return mainWeaponList.test1.prefab;
             default:
                 return null;
         }
@@ -105,7 +124,7 @@ public class WeaponSystem : MonoBehaviour
         switch (accessaryWeaponName)
         {
             case AccessaryWeaponEnum.test1:
-                return accessaryWeaponPrefabList.test1;
+                return accessaryWeaponList.test1.prefab;
             default:
                 return null;
         }

@@ -5,11 +5,13 @@ using UnityEngine;
 /// <summary>
 /// 主武器父类
 /// </summary>
-public abstract class MainWeapon : Weapon {
-
+public abstract class MainWeapon : ICPUnit, Weapon
+{
+    //通用部署代码-----------------------
     /// <summary>
     /// 副武器位置L
     /// </summary>
+    [Header("【主武器结构】")]
     public Transform accessaryWeaponPositionL;
     /// <summary>
     /// 副武器位置R
@@ -19,4 +21,11 @@ public abstract class MainWeapon : Weapon {
     /// 核心位置
     /// </summary>
     public Transform corePosition;
+
+
+
+
+
+    //控制方法---------------------------
+    public abstract void Launch();
 }
