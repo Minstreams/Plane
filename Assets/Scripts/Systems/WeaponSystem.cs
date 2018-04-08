@@ -33,7 +33,9 @@ public class WeaponSystem : MonoBehaviour
     public class ParametersData<OtherParameters>
     {
         public GameObject prefab;
+        [Header("视角控制通用参数：")]
         public ICPUnit.RotateParameters rotateParameters;
+        [Header("其它参数：")]
         public OtherParameters otherParameters;
     }
 

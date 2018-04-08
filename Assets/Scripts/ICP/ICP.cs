@@ -178,8 +178,8 @@ public class ICP : BulletTimeFixedBehaviour
 
     protected override void BulletFixedUpdate()
     {
-        weaponBottom.MyUpdate();
-        mainWeapon.MyUpdate();
-        accessaryWeapon.MyUpdate();
+        weaponBottom.FixedRotateAngle();
+        mainWeapon.FixedRotateAngle();
+        accessaryWeapon.FixedRotateAngle();
     }
 }
