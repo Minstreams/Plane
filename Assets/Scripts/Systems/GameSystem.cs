@@ -33,6 +33,15 @@ public class GameSystem : MonoBehaviour
 
 
     //系统实例----------------------------
+    private static GameSystem gameSystemInstance;
+    private static RunningSystem runningSystemInstance;
+    private static AudioSystem audioSystemInstance;
+    private static SceneSystem sceneSystemInstance;
+    private static BulletTimeSystem bulletTimeSystemInstance;
+    private static MenuSystem menuSystemInstance;
+    private static WeaponSystem weaponSystemInstance;
+
+
     /// <summary>
     /// 自身实例(这样写保证编辑器模式下也能调用)
     /// </summary>
@@ -40,15 +49,11 @@ public class GameSystem : MonoBehaviour
     {
         get
         {
-            if (system == null)
+            if (gameSystemInstance == null)
             {
-                system = GameObject.FindGameObjectWithTag("GameSystem").GetComponent<GameSystem>();
+                gameSystemInstance = GameObject.FindGameObjectWithTag("GameSystem").GetComponent<GameSystem>();
             }
-            return system;
-        }
-        private set
-        {
-            system = value;
+            return gameSystemInstance;
         }
     }
 
@@ -59,15 +64,11 @@ public class GameSystem : MonoBehaviour
     {
         get
         {
-            if (runningSystem == null)
+            if (runningSystemInstance == null)
             {
-                runningSystem = system.GetComponent<RunningSystem>();
+                runningSystemInstance = system.GetComponent<RunningSystem>();
             }
-            return runningSystem;
-        }
-        private set
-        {
-            runningSystem = value;
+            return runningSystemInstance;
         }
     }
 
@@ -78,15 +79,11 @@ public class GameSystem : MonoBehaviour
     {
         get
         {
-            if (audioSystem == null)
+            if (audioSystemInstance == null)
             {
-                audioSystem = system.GetComponent<AudioSystem>();
+                audioSystemInstance = system.GetComponent<AudioSystem>();
             }
-            return audioSystem;
-        }
-        private set
-        {
-            audioSystem = value;
+            return audioSystemInstance;
         }
     }
 
@@ -97,15 +94,11 @@ public class GameSystem : MonoBehaviour
     {
         get
         {
-            if (sceneSystem == null)
+            if (sceneSystemInstance == null)
             {
-                sceneSystem = system.GetComponent<SceneSystem>();
+                sceneSystemInstance = system.GetComponent<SceneSystem>();
             }
-            return sceneSystem;
-        }
-        private set
-        {
-            sceneSystem = value;
+            return sceneSystemInstance;
         }
     }
 
@@ -116,15 +109,11 @@ public class GameSystem : MonoBehaviour
     {
         get
         {
-            if (bulletTimeSystem == null)
+            if (bulletTimeSystemInstance == null)
             {
-                bulletTimeSystem = system.GetComponent<BulletTimeSystem>();
+                bulletTimeSystemInstance = system.GetComponent<BulletTimeSystem>();
             }
-            return bulletTimeSystem;
-        }
-        private set
-        {
-            bulletTimeSystem = value;
+            return bulletTimeSystemInstance;
         }
     }
 
@@ -135,18 +124,14 @@ public class GameSystem : MonoBehaviour
     {
         get
         {
-            if (menuSystem == null)
+            if (menuSystemInstance == null)
             {
-                menuSystem = system.GetComponent<MenuSystem>();
+                menuSystemInstance = system.GetComponent<MenuSystem>();
             }
-            return menuSystem;
-        }
-        private set
-        {
-            menuSystem = value;
+            return menuSystemInstance;
         }
     }
-
+    
     /// <summary>
     /// 武器系统
     /// </summary>
@@ -154,15 +139,11 @@ public class GameSystem : MonoBehaviour
     {
         get
         {
-            if (weaponSystem == null)
+            if (weaponSystemInstance == null)
             {
-                weaponSystem = system.GetComponent<WeaponSystem>();
+                weaponSystemInstance = system.GetComponent<WeaponSystem>();
             }
-            return weaponSystem;
-        }
-        private set
-        {
-            weaponSystem = value;
+            return weaponSystemInstance;
         }
     }
 

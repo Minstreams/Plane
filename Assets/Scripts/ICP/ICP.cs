@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,8 +24,11 @@ public class ICP : BulletTimeFixedBehaviour
 
 
     //结构组成-------------------------------------
+    [HideInInspector,SerializeField]
     private WeaponBottom weaponBottom;
+    [HideInInspector,SerializeField]
     private MainWeapon mainWeapon;
+    [HideInInspector,SerializeField]
     private AccessaryWeapon accessaryWeapon;
 
 
@@ -172,11 +176,10 @@ public class ICP : BulletTimeFixedBehaviour
         accessaryWeapon.RotateAngle(hAngle, vAngle);
     }
 
-    private void Awake()
+    protected override void BulletFixedUpdate()
     {
-        //定位子物体中的武器
-        weaponBottom = GetComponentInChildren<WeaponBottom>();
-        mainWeapon = GetComponentInChildren<MainWeapon>();
-        accessaryWeapon = GetComponentInChildren<AccessaryWeapon>();
+        weaponBottom.MyUpdate();
+        mainWeapon.MyUpdate();
+        accessaryWeapon.MyUpdate();
     }
 }

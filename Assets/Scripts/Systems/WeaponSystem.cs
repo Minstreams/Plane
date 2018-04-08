@@ -8,22 +8,28 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class WeaponSystem : MonoBehaviour
 {
-    //参数--------------------------------
+    //参数----------------------------------------------------------------
     [System.Serializable]
     public struct Setting
     {
-
+        [Header("底座参数")]
+        public WeaponBottomList weaponBottomList;
+        [Header("主武器参数")]
+        public MainWeaponList mainWeaponList;
+        [Header("副武器参数")]
+        public AccessaryWeaponList accessaryWeaponList;
     }
     [Header("【武器系统】")]
     [Header("参数设置：")]
     public Setting setting;
 
-    //属性--------------------------------
+
+
+    //参数结构------------------------------------------------------------
     /// <summary>
     /// 参数结构
     /// </summary>
     /// <typeparam name="T">其它参数类型</typeparam>
-    [System.Serializable]
     public class ParametersData<OtherParameters>
     {
         public GameObject prefab;
@@ -31,6 +37,9 @@ public class WeaponSystem : MonoBehaviour
         public OtherParameters otherParameters;
     }
 
+
+
+    //底座----------------------------------------------------------------
     /// <summary>
     /// 底座型号
     /// </summary>
@@ -41,20 +50,19 @@ public class WeaponSystem : MonoBehaviour
 
     //序列化列表
     [System.Serializable]
-    public class ParameterTest1 : ParametersData<WeaponBottomTest.OtherParameters> { }
+    public class PWBTest1 : ParametersData<WeaponBottomTest.OtherParameters> { }
 
-
+    //结构体表列
     [System.Serializable]
     public struct WeaponBottomList
     {
-        public ParameterTest1 test1;
+        public PWBTest1 test1;
     }
 
 
-    [Header("底座参数")]
-    public WeaponBottomList weaponBottomList;
 
 
+    //主武器--------------------------------------------------------------
     /// <summary>
     /// 主武器型号
     /// </summary>
@@ -62,16 +70,23 @@ public class WeaponSystem : MonoBehaviour
     {
         test1
     }
+
+    //序列化列表
+    [System.Serializable]
+    public class PMWTest1 : ParametersData<MainWeaponTest1.OtherParameters> { }
+
+    //结构体表列
     [System.Serializable]
     public struct MainWeaponList
     {
-        public ParametersData<MainWeaponTest1.OtherParameters> test1;
+        public PMWTest1 test1;
     }
-    [Header("主武器参数")]
-    [SerializeField]
-    public MainWeaponList mainWeaponList;
 
 
+
+
+
+    //副武器--------------------------------------------------------------
     /// <summary>
     /// 副武器型号
     /// </summary>
@@ -79,14 +94,20 @@ public class WeaponSystem : MonoBehaviour
     {
         test1
     }
+
+    //序列化列表
+    [System.Serializable]
+    public class PAWTest1 : ParametersData<AccessaryWeaponTest.OtherParameters> { }
+
+    //结构体表列
     [System.Serializable]
     public struct AccessaryWeaponList
     {
-        public ParametersData<AccessaryWeaponTest.OtherParameters> test1;
+        public PAWTest1 test1;
     }
-    [Header("副武器参数")]
-    [SerializeField]
-    public AccessaryWeaponList accessaryWeaponList;
+
+
+
 
 
     //方法--------------------------------
@@ -98,7 +119,7 @@ public class WeaponSystem : MonoBehaviour
         switch (weaponBottomName)
         {
             case WeaponBottomEnum.test1:
-                return weaponBottomList.test1.prefab;
+                return setting.weaponBottomList.test1.prefab;
             default:
                 return null;
         }
@@ -111,7 +132,7 @@ public class WeaponSystem : MonoBehaviour
         switch (mainWeaponName)
         {
             case MainWeaponEnum.test1:
-                return mainWeaponList.test1.prefab;
+                return setting.mainWeaponList.test1.prefab;
             default:
                 return null;
         }
@@ -124,7 +145,7 @@ public class WeaponSystem : MonoBehaviour
         switch (accessaryWeaponName)
         {
             case AccessaryWeaponEnum.test1:
-                return accessaryWeaponList.test1.prefab;
+                return setting.accessaryWeaponList.test1.prefab;
             default:
                 return null;
         }

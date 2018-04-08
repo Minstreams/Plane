@@ -10,6 +10,7 @@ public abstract class BulletTimeFixedBehaviour : BulletTimeBehaviour
 {
     //实现----------------------------------
     private float timer = 0;
+    private float fixedTimer = 0;
     /// <summary>
     /// 固定DeltaTime
     /// </summary>
@@ -32,6 +33,13 @@ public abstract class BulletTimeFixedBehaviour : BulletTimeBehaviour
             timer -= BulletTimeSystem.BulletUpdateTimeInterVal;
             BulletUpdate();
         }
+
+        fixedTimer += Time.deltaTime;
+        while (fixedTimer > DeltaTime)
+        {
+            fixedTimer -= DeltaTime;
+            BulletFixedUpdate();
+        }
     }
 
 
@@ -41,4 +49,9 @@ public abstract class BulletTimeFixedBehaviour : BulletTimeBehaviour
     /// 定时调用
     /// </summary>
     protected abstract void BulletUpdate();
+
+    /// <summary>
+    /// 真·定时调用
+    /// </summary>
+    protected abstract void BulletFixedUpdate();
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 /// ICP安装单位
 /// </summary>
 [DisallowMultipleComponent]
-public abstract class ICPUnit : BulletTimeBehaviour
+public abstract class ICPUnit : MonoBehaviour
 {
     //参数---------------------------------------------
 
@@ -40,8 +40,8 @@ public abstract class ICPUnit : BulletTimeBehaviour
     private float hAngle = 0;
     private float vAngle = 0;
 
-    private float hSpeed;
-    private float vSpeed;
+    private float hDelta;
+    private float vDelta;
 
     private float hOutputAngle;
     private float vOutputAngle;
@@ -54,32 +54,40 @@ public abstract class ICPUnit : BulletTimeBehaviour
     /// <param name="v">垂直分量</param>
     public void RotateAngle(float hTargetAngle, float vTargetAngle)
     {
-        hSpeed = Mathf.Clamp(
+        hAngle += Mathf.Clamp(
             (hTargetAngle - hAngle) * (1 - rotateParameters.horizontalSmoothnessRate) * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal,
             -rotateParameters.horizontalAngleSpeedLimit,
             rotateParameters.horizontalAngleSpeedLimit
-            );
-        vSpeed = Mathf.Clamp(
+            ) * BulletTimeSystem.BulletUpdateTimeInterVal;
+        vAngle += Mathf.Clamp(
                 (vTargetAngle - vAngle) * (1 - rotateParameters.verticalSmoothnessRate) * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal,
                 -rotateParameters.verticalAngleSpeedLimit,
                 rotateParameters.verticalAngleSpeedLimit
-                );
+                ) * BulletTimeSystem.BulletUpdateTimeInterVal;
 
-        hAngle += hSpeed * BulletTimeSystem.BulletUpdateTimeInterVal;
-        vAngle += vSpeed * BulletTimeSystem.BulletUpdateTimeInterVal;
+        hDelta = hAngle - hOutputAngle;
+        vDelta = vAngle - vOutputAngle;
 
-        hOutputAngle = hAngle;
-        vOutputAngle = vAngle;
     }
 
-    protected override void Update()
+    public void MyUpdate()
     {
         Rotate(
             new Quaternion(0, Mathf.Sin(hOutputAngle * Mathf.PI / 360.0f), 0, Mathf.Cos(hOutputAngle * Mathf.PI / 360.0f)),
             new Quaternion(-Mathf.Sin(vOutputAngle * Mathf.PI / 360.0f), 0, 0, Mathf.Cos(vOutputAngle * Mathf.PI / 360.0f))
             );
-        hOutputAngle += hSpeed * DeltaTime;
-        vOutputAngle += vSpeed * DeltaTime;
+
+        hOutputAngle += hDelta * BulletTimeSystem.TimeScale;
+        vOutputAngle += vDelta * BulletTimeSystem.TimeScale;
+
+        if (hAngle - hOutputAngle > 0 == hDelta < 0)
+        {
+            hOutputAngle = hAngle;
+        }
+        if (vAngle - vOutputAngle > 0 == vDelta < 0)
+        {
+            vOutputAngle = vAngle;
+        }
     }
 
     /// <summary>

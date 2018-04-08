@@ -13,12 +13,12 @@ public class MainWeaponTest1 : MainWeapon
 
     }
 
-    private OtherParameters parameters { get { return GameSystem.weaponSystem.mainWeaponList.test1.otherParameters; } }
+    private OtherParameters parameters { get { return GameSystem.weaponSystem.setting.mainWeaponList.test1.otherParameters; } }
     protected override RotateParameters rotateParameters
     {
         get
         {
-            return GameSystem.weaponSystem.mainWeaponList.test1.rotateParameters;
+            return GameSystem.weaponSystem.setting.mainWeaponList.test1.rotateParameters;
         }
     }
 

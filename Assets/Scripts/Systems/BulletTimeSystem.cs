@@ -20,7 +20,7 @@ public class BulletTimeSystem : MonoBehaviour
     public Setting setting;
 
     /// <summary>
-    /// 每帧时间间隔默认值(s)
+    /// 每帧时间间隔默认值(s),必须手动调为和系统设置一样
     /// </summary>
     public const float BulletUpdateTimeInterVal = 0.02f;
 
@@ -55,10 +55,9 @@ public class BulletTimeSystem : MonoBehaviour
     [Header("时间拉伸系数")]
     [SerializeField]
     [Range(0, 1)]
-    [ContextMenuItem("应用","TimeScaleDebug")]
     private float timeScaleDebug = 1.0f;
 
-    private void TimeScaleDebug()
+    private void Update()
     {
         SetTimeScale(timeScaleDebug);
     }
