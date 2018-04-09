@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// 主武器父类
 /// </summary>
-public abstract class MainWeapon : ICPUnit, Weapon
+public abstract class MainWeapon : Weapon
 {
     //通用部署代码-----------------------
     /// <summary>
@@ -22,10 +23,4 @@ public abstract class MainWeapon : ICPUnit, Weapon
     /// </summary>
     public Transform corePosition;
 
-
-
-
-
-    //控制方法---------------------------
-    public abstract void Launch();
 }

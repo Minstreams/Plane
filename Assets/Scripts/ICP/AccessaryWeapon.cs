@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// 副武器
 /// </summary>
-public abstract class AccessaryWeapon : ICPUnit , Weapon
+public abstract class AccessaryWeapon : ICPUnit, Weapon
 {
     //通用部署代码-----------------------
     [Header("【副武器结构】")]
@@ -30,13 +31,4 @@ public abstract class AccessaryWeapon : ICPUnit , Weapon
         RPart.localPosition = Vector3.zero;
         RPart.localRotation = Quaternion.identity;
     }
-
-
-
-
-
-
-
-    //控制方法---------------------------
-    public abstract void Launch();
 }
