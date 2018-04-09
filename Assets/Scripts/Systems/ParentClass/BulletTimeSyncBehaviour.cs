@@ -6,11 +6,10 @@ using UnityEngine;
 /// <summary>
 /// 提供BulletUpdate方法的高级Behaviour(Update禁用)
 /// </summary>
-public abstract class BulletTimeFixedBehaviour : BulletTimeBehaviour
+public abstract class BulletTimeSycnBehaviour : BulletTimeBehaviour
 {
     //实现----------------------------------
     private float timer = 0;
-    private float fixedTimer = 0;
     /// <summary>
     /// 固定DeltaTime
     /// </summary>
@@ -19,6 +18,14 @@ public abstract class BulletTimeFixedBehaviour : BulletTimeBehaviour
         get
         {
             return BulletTimeSystem.BulletUpdateTimeInterVal;
+        }
+    }
+
+    protected float SyncDeltaTime
+    {
+        get
+        {
+            return 0;
         }
     }
 
@@ -34,12 +41,7 @@ public abstract class BulletTimeFixedBehaviour : BulletTimeBehaviour
             BulletUpdate();
         }
 
-        fixedTimer += Time.deltaTime;
-        while (fixedTimer > DeltaTime)
-        {
-            fixedTimer -= DeltaTime;
-            BulletFixedUpdate();
-        }
+        SyncUpdate();
     }
 
 
@@ -51,7 +53,7 @@ public abstract class BulletTimeFixedBehaviour : BulletTimeBehaviour
     protected abstract void BulletUpdate();
 
     /// <summary>
-    /// 真·定时调用
+    /// 每帧调用，用于同步！
     /// </summary>
-    protected abstract void BulletFixedUpdate();
+    protected abstract void SyncUpdate();
 }

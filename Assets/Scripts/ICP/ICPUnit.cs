@@ -61,19 +61,19 @@ public abstract class ICPUnit : MonoBehaviour
         //用角速度限制和角度限制进行Clamp裁剪
         hAngle += Mathf.Clamp(
                     (hTargetAngle - hAngle) * (1 - rotateParameters.horizontalSmoothnessRate) * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal,
-                    -rotateParameters.horizontalAngleSpeedLimit,rotateParameters.horizontalAngleSpeedLimit
-                ) 
+                    -rotateParameters.horizontalAngleSpeedLimit, rotateParameters.horizontalAngleSpeedLimit
+                )
                 * BulletTimeSystem.BulletUpdateTimeInterVal;
-                    
+
         vAngle = Mathf.Clamp(
                     vAngle +
                         Mathf.Clamp(
                             (vTargetAngle - vAngle) * (1 - rotateParameters.verticalSmoothnessRate) * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal,
-                             -rotateParameters.verticalAngleSpeedLimit,rotateParameters.verticalAngleSpeedLimit
-                         ) 
+                             -rotateParameters.verticalAngleSpeedLimit, rotateParameters.verticalAngleSpeedLimit
+                         )
                         * BulletTimeSystem.BulletUpdateTimeInterVal,
-                    -rotateParameters.downAngleLimit,rotateParameters.upAngleLimit
-                ); 
+                    -rotateParameters.downAngleLimit, rotateParameters.upAngleLimit
+                );
 
         //计算Delta量
         hDelta = hAngle - hOutputAngle;
@@ -81,15 +81,10 @@ public abstract class ICPUnit : MonoBehaviour
 
     }
 
-    public void FixedRotateAngle()
+    public void SyncRotateAngle()
     {
-        Rotate(
-            new Quaternion(0, Mathf.Sin(hOutputAngle * Mathf.PI / 360.0f), 0, Mathf.Cos(hOutputAngle * Mathf.PI / 360.0f)),
-            new Quaternion(-Mathf.Sin(vOutputAngle * Mathf.PI / 360.0f), 0, 0, Mathf.Cos(vOutputAngle * Mathf.PI / 360.0f))
-            );
-
-        hOutputAngle += hDelta * BulletTimeSystem.TimeScale;
-        vOutputAngle += vDelta * BulletTimeSystem.TimeScale;
+        hOutputAngle += hDelta * BulletTimeSystem.TimeScale * Time.deltaTime * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal;
+        vOutputAngle += vDelta * BulletTimeSystem.TimeScale * Time.deltaTime * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal;
 
         if (hAngle - hOutputAngle > 0 == hDelta < 0)
         {
@@ -99,6 +94,11 @@ public abstract class ICPUnit : MonoBehaviour
         {
             vOutputAngle = vAngle;
         }
+
+        Rotate(
+            new Quaternion(0, Mathf.Sin(hOutputAngle * Mathf.PI / 360.0f), 0, Mathf.Cos(hOutputAngle * Mathf.PI / 360.0f)),
+            new Quaternion(-Mathf.Sin(vOutputAngle * Mathf.PI / 360.0f), 0, 0, Mathf.Cos(vOutputAngle * Mathf.PI / 360.0f))
+            );
     }
 
     /// <summary>

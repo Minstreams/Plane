@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 [DisallowMultipleComponent]
 [AddComponentMenu("Combat Unit/ICP")]
-public class ICP : BulletTimeFixedBehaviour
+public class ICP : BulletTimeSycnBehaviour
 {
     //型号记录-------------------------------------
     [ContextMenuItem("LoadWeaponBottom", "LoadWeaponBottom")]
@@ -176,10 +176,10 @@ public class ICP : BulletTimeFixedBehaviour
         accessaryWeapon.RotateAngle(hAngle, vAngle);
     }
 
-    protected override void BulletFixedUpdate()
+    protected override void SyncUpdate()
     {
-        weaponBottom.FixedRotateAngle();
-        mainWeapon.FixedRotateAngle();
-        accessaryWeapon.FixedRotateAngle();
+        weaponBottom.SyncRotateAngle();
+        mainWeapon.SyncRotateAngle();
+        accessaryWeapon.SyncRotateAngle();
     }
 }

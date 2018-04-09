@@ -12,7 +12,7 @@ public class Tracker : MonoBehaviour
     [Header("【平滑追踪器】")]
     public Transform target;
     [Header("平滑度")]
-    [Range(0.05f, 0.95f)]
+    [Range(0, 0.95f)]
     public float smoothness = 0.5f;
 
     private void FixedUpdate()
