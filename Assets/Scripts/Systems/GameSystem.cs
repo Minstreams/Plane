@@ -15,6 +15,10 @@ using UnityEngine;
 [RequireComponent(typeof(WeaponSystem))]
 public class GameSystem : MonoBehaviour
 {
+#if UNITY_EDITOR
+    [Header("【游戏系统】")]
+    public EmptyStruct 一一一一一一一一一一一一一一一一一一一一一一一一一一一;
+#endif
     //参数属性----------------------------
     [System.Serializable]
     public struct Setting
@@ -22,7 +26,6 @@ public class GameSystem : MonoBehaviour
 
     }
 
-    [Header("【游戏系统】")]
     [Header("参数设置：")]
     public Setting setting;
 
@@ -153,3 +156,8 @@ public class GameSystem : MonoBehaviour
         runningSystem.StartRunning();
     }
 }
+
+#if UNITY_EDITOR
+[System.Serializable]
+public struct EmptyStruct { }
+#endif

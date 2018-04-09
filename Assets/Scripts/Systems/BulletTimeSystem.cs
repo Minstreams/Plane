@@ -20,7 +20,7 @@ public class BulletTimeSystem : MonoBehaviour
     public Setting setting;
 
     /// <summary>
-    /// 每帧时间间隔默认值(s),必须手动调为和系统设置一样
+    /// 每帧时间间隔默认值(s)
     /// </summary>
     public const float BulletUpdateTimeInterVal = 0.02f;
 

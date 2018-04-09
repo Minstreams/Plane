@@ -8,17 +8,22 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class AudioSystem : MonoBehaviour
 {
+#if UNITY_EDITOR
+    [Header("【声音系统】")]
+    public EmptyStruct 一一一一一一一一一一一一一一一一一一一一一一一一一一一;
+#endif
+
     //参数--------------------------------
     [System.Serializable]
-    public struct Setting
+    public class Setting
     {
         [Header("音效音量")]
         [Range(0, 1.0f)]
-        public float soundVolumn;
+        public float soundVolumn = 1.0f;
 
         [Header("音乐音量")]
         [Range(0, 1.0f)]
-        public float musicVolumn;
+        public float musicVolumn = 1.0f;
 
         /// <summary>
         /// 音乐淡出时间（秒）
@@ -26,18 +31,11 @@ public class AudioSystem : MonoBehaviour
         [SerializeField]
         [Header("音乐淡出时间")]
         [Range(0.1f, 2.0f)]
-        public float musicFadeOutTime;
+        public float musicFadeOutTime = 1.0f;
     }
-    [Header("【声音系统】")]
-    [Header("参数设置：")]
     public Setting setting;
+    
 
-    private void Reset()
-    {
-        setting.musicVolumn = 1.0f;
-        setting.soundVolumn = 1.0f;
-        setting.musicFadeOutTime = 1.0f;
-    }
 
     //属性--------------------------------
     /// <summary>

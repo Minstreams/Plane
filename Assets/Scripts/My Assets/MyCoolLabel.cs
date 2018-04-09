@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+
 
 /// <summary>
 /// 酷酷的标签
 /// </summary>
 [DisallowMultipleComponent]
 [AddComponentMenu("My Assets/Label")]
-public class MyCoolLabel : MonoBehaviour {
+public class MyCoolLabel : MonoBehaviour
+{
 #if UNITY_EDITOR
     [Space(10)]
     [Header("标签名称(给自己看着方便的)")]
@@ -22,7 +23,7 @@ public class MyCoolLabel : MonoBehaviour {
         {
             if (style == null)
             {
-                style = new GUIStyle(EditorStyles.largeLabel);
+                style = new GUIStyle(UnityEditor.EditorStyles.largeLabel);
                 style.alignment = TextAnchor.MiddleCenter;
                 style.normal.textColor = new Color(0.9f, 0.9f, 0.9f);
                 style.fontSize = 32;
@@ -35,7 +36,7 @@ public class MyCoolLabel : MonoBehaviour {
     {
         if (text == "") return;
         Vector3 point = transform.position;
-        if(GetComponent<SpriteRenderer>()!=null)point = transform.position + Vector3.up * GetComponent<SpriteRenderer>().sprite.bounds.extents.y * transform.localScale.y;
+        if (GetComponent<SpriteRenderer>() != null) point = transform.position + Vector3.up * GetComponent<SpriteRenderer>().sprite.bounds.extents.y * transform.localScale.y;
         float dist = (Camera.current.transform.position - point).magnitude;
 
         float fontSize = Mathf.Lerp(64, 12, dist / 10f) * size;
@@ -55,7 +56,7 @@ public class MyCoolLabel : MonoBehaviour {
 
         alpha = Mathf.Lerp(-0.2f, 1f, alpha);
 
-        Handles.BeginGUI();
+        UnityEditor.Handles.BeginGUI();
 
         scPos.y = Screen.height - scPos.y; // Flip Y
 
@@ -65,13 +66,13 @@ public class MyCoolLabel : MonoBehaviour {
         Rect rect = new Rect(0f, 0f, strSize.x + 6, strSize.y + 4);
         rect.center = scPos - Vector3.up * rect.height * 0.5f;
         GUI.color = new Color(0f, 0f, 0f, 0.8f * alpha);
-        GUI.DrawTexture(rect, EditorGUIUtility.whiteTexture);
+        GUI.DrawTexture(rect, UnityEditor.EditorGUIUtility.whiteTexture);
         GUI.color = Color.white;
         GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, alpha);
         GUI.Label(rect, text, Style);
         GUI.color = Color.white;
 
-        Handles.EndGUI();
+        UnityEditor.Handles.EndGUI();
     }
 #endif
 }
