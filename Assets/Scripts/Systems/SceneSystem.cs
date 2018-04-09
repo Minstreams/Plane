@@ -9,32 +9,36 @@ using UnityEngine.SceneManagement;
 [DisallowMultipleComponent]
 public class SceneSystem : MonoBehaviour
 {
-    //参数--------------------------------
-    [System.Serializable]
-    public struct Setting
-    {
-
-    }
+#if UNITY_EDITOR
     [Header("【场景管理系统】")]
-    [Header("参数设置：")]
-    public Setting setting;
-
-    //属性--------------------------------
-    private string currentSceneName = "";
-
-
-    //方法--------------------------------
-    /// <summary>
-    /// 加载并替换游戏场景
-    /// </summary>
-    /// <param name="sceneName">场景名</param>
-    public void LoadScene(string sceneName)
+    public EmptyStruct 一一一一一一一一一一一一一一一一一一一一一一一一一一一;
+#endif
+    [System.Serializable]
+    public class Setting
     {
-        if (!currentSceneName.Equals(""))
+        //参数--------------------------------
+
+
+
+
+        //属性--------------------------------
+        private string currentSceneName = "";
+
+
+        //方法--------------------------------
+        /// <summary>
+        /// 加载并替换游戏场景
+        /// </summary>
+        /// <param name="sceneName">场景名</param>
+        public void LoadScene(string sceneName)
         {
-            SceneManager.UnloadSceneAsync(currentSceneName);
+            if (!currentSceneName.Equals(""))
+            {
+                SceneManager.UnloadSceneAsync(currentSceneName);
+            }
+            currentSceneName = sceneName;
+            SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
         }
-        currentSceneName = sceneName;
-        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
+    public Setting setting;
 }

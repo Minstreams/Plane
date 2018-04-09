@@ -13,12 +13,12 @@ public class AccessaryWeaponTest : AccessaryWeapon
 
     }
 
-    private OtherParameters parameters { get { return GameSystem.weaponSystem.setting.accessaryWeaponList.test1.otherParameters; } }
+    private OtherParameters parameters { get { return GameSystem.weaponSystem.accessaryWeaponList.test1.otherParameters; } }
     protected override RotateParameters rotateParameters
     {
         get
         {
-            return GameSystem.weaponSystem.setting.accessaryWeaponList.test1.rotateParameters;
+            return GameSystem.weaponSystem.accessaryWeaponList.test1.rotateParameters;
         }
     }
 
