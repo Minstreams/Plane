@@ -91,7 +91,9 @@
 				ti.filterMode = FilterMode.Point;
 				ti.mipmapEnabled = false;
 				ti.wrapMode = TextureWrapMode.Clamp;
+#pragma warning disable CS0618 // 类型或成员已过时
 				ti.textureFormat = TextureImporterFormat.AutomaticTruecolor;
+#pragma warning restore CS0618 // 类型或成员已过时
 				ti.textureType = TextureImporterType.Default;
 				ti.npotScale = TextureImporterNPOTScale.None;
 				ti.maxTextureSize = Mathf.Max(texture.width, texture.height);

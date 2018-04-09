@@ -106,7 +106,9 @@ namespace UnityStandardAssets.ImageEffects
 
             doHdr = false;
             if (hdr == HDRBloomMode.Auto)
+#pragma warning disable CS0618 // 类型或成员已过时
                 doHdr = source.format == RenderTextureFormat.ARGBHalf && GetComponent<Camera>().hdr;
+#pragma warning restore CS0618 // 类型或成员已过时
             else {
                 doHdr = hdr == HDRBloomMode.On;
             }

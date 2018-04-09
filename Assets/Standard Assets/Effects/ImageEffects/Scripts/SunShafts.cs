@@ -90,7 +90,9 @@ namespace UnityStandardAssets.ImageEffects
             sunShaftsMaterial.SetVector ("_SunThreshold", sunThreshold);
 
             if (!useDepthTexture) {
+#pragma warning disable CS0618 // 类型或成员已过时
                 var format= GetComponent<Camera>().hdr ? RenderTextureFormat.DefaultHDR: RenderTextureFormat.Default;
+#pragma warning restore CS0618 // 类型或成员已过时
                 RenderTexture tmpBuffer = RenderTexture.GetTemporary (source.width, source.height, 0, format);
                 RenderTexture.active = tmpBuffer;
                 GL.ClearWithSkybox (false, GetComponent<Camera>());
