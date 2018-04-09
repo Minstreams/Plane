@@ -5,6 +5,6 @@ using UnityEngine;
 /// <summary>
 /// 作战单位单位 Combat Unit
 /// </summary>
-public abstract class CombatUnit : BulletTimeSycnBehaviour {
+public abstract class CombatUnit : MonoBehaviour {
 
 }

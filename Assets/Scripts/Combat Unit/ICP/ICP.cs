@@ -23,13 +23,19 @@ public class ICP : CombatUnit
 
 
 
+
     //结构组成-------------------------------------
-    [HideInInspector,SerializeField]
+    [HideInInspector, SerializeField]
     private WeaponBottom weaponBottom;
-    [HideInInspector,SerializeField]
+    [HideInInspector, SerializeField]
     private MainWeapon mainWeapon;
-    [HideInInspector,SerializeField]
+    [HideInInspector, SerializeField]
     private AccessaryWeapon accessaryWeapon;
+    /// <summary>
+    /// 核心位置
+    /// </summary>
+    public Transform corePosition { get { return mainWeapon.corePosition; } }
+
 
 
 
@@ -40,6 +46,10 @@ public class ICP : CombatUnit
     [ContextMenu("加载武器")]
     public void Load()
     {
+        if (BeforeLoad != null)
+        {
+            BeforeLoad();
+        }
         //清空子物体
         for (int i = transform.childCount - 1; i >= 0; i--)
         {
@@ -50,6 +60,11 @@ public class ICP : CombatUnit
         LoadWeaponBottom();
         LoadMainWeapon();
         LoadAccessaryWeapon();
+
+        if (AfterLoad != null)
+        {
+            AfterLoad();
+        }
     }
 
     /// <summary>
@@ -121,7 +136,8 @@ public class ICP : CombatUnit
         if (toDestroy != null) DestroyImmediate(toDestroy);
     }
 
-
+    public event Action BeforeLoad;
+    public event Action AfterLoad;
 
     //参数----------------------------------------
     [SerializeField]
@@ -143,6 +159,9 @@ public class ICP : CombatUnit
     private float vAngle = 0;
 
 
+
+
+
     //控制方法------------------------------------
     /// <summary>
     /// 转动视角
@@ -153,9 +172,8 @@ public class ICP : CombatUnit
     {
         hAngle += hDeltaAngle;
         vAngle = Mathf.Clamp(vAngle + vDeltaAngle, -downAngleLimit, upAngleLimit);
-
-        mainWeapon.corePosition.rotation = Quaternion.Euler(-vAngle, hAngle, 0);
     }
+
 
     /// <summary>
     /// 移动控制
@@ -169,18 +187,13 @@ public class ICP : CombatUnit
 
 
 
-    //---------------------------------------------
-    protected override void BulletUpdate()
+    //控制下层------------------------------------
+    private void Update()
     {
+        mainWeapon.corePosition.rotation = Quaternion.Euler(-vAngle, hAngle, 0);
+
         weaponBottom.RotateAngle(hAngle, vAngle);
         mainWeapon.RotateAngle(hAngle, vAngle);
         accessaryWeapon.RotateAngle(hAngle, vAngle);
-    }
-
-    protected override void SyncUpdate()
-    {
-        weaponBottom.SyncRotateAngle();
-        mainWeapon.SyncRotateAngle();
-        accessaryWeapon.SyncRotateAngle();
     }
 }

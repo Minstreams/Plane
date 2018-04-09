@@ -21,18 +21,18 @@ public abstract class ICPUnit : MonoBehaviour
         [Header("垂直角速度上限（度/秒）：")]
         public float verticalAngleSpeedLimit = 90;
         [Header("水平旋转平滑度:")]
-        [Range(0, 0.97f)]
+        public bool horizontalSmooth = false;
+        [Range(0.1f, 0.97f)]
         public float horizontalSmoothnessRate = 0.3f;
         [Header("垂直旋转平滑度:")]
-        [Range(0, 0.97f)]
+        public bool verticalSmooth = false;
+        [Range(0.1f, 0.97f)]
         public float verticalSmoothnessRate = 0.3f;
-        [Range(10, 90)]
-        [Header("上仰角限制")]
+        [Header("上仰角限制"), Range(10, 90)]
         public float upAngleLimit = 90;
-        [SerializeField]
-        [Range(10, 90)]
-        [Header("下俯角限制")]
+        [Header("下俯角限制"), Range(10, 90)]
         public float downAngleLimit = 30;
+
     }
 
     /// <summary>
@@ -40,15 +40,8 @@ public abstract class ICPUnit : MonoBehaviour
     /// </summary>
     protected abstract RotateParameters rotateParameters { get; }
 
-
     private float hAngle = 0;
     private float vAngle = 0;
-
-    private float hDelta;
-    private float vDelta;
-
-    private float hOutputAngle;
-    private float vOutputAngle;
 
     //通用控制方法-------------------------------------
     /// <summary>
@@ -59,46 +52,44 @@ public abstract class ICPUnit : MonoBehaviour
     public void RotateAngle(float hTargetAngle, float vTargetAngle)
     {
         //用角速度限制和角度限制进行Clamp裁剪
-        hAngle += Mathf.Clamp(
-                    (hTargetAngle - hAngle) * (1 - rotateParameters.horizontalSmoothnessRate) * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal,
-                    -rotateParameters.horizontalAngleSpeedLimit, rotateParameters.horizontalAngleSpeedLimit
+        hAngle += Mathf.Clamp
+                (
+                    (hTargetAngle - hAngle) *
+                    (
+                        rotateParameters.horizontalSmooth ?
+                        (1 - Mathf.Pow(rotateParameters.horizontalSmoothnessRate, Time.deltaTime * BulletTimeSystem.TimeScale * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal)) :
+                        1
+                    )
+                    / Time.deltaTime,
+                    -rotateParameters.horizontalAngleSpeedLimit * BulletTimeSystem.TimeScale,
+                    rotateParameters.horizontalAngleSpeedLimit * BulletTimeSystem.TimeScale
                 )
-                * BulletTimeSystem.BulletUpdateTimeInterVal;
+                * Time.deltaTime;
 
-        vAngle = Mathf.Clamp(
+        vAngle = Mathf.Clamp
+                (
                     vAngle +
-                        Mathf.Clamp(
-                            (vTargetAngle - vAngle) * (1 - rotateParameters.verticalSmoothnessRate) * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal,
-                             -rotateParameters.verticalAngleSpeedLimit, rotateParameters.verticalAngleSpeedLimit
-                         )
-                        * BulletTimeSystem.BulletUpdateTimeInterVal,
+                        Mathf.Clamp
+                        (
+                            (vTargetAngle - vAngle) *
+                            (
+                                rotateParameters.verticalSmooth ?
+                                (1 - Mathf.Pow(rotateParameters.verticalSmoothnessRate, Time.deltaTime * BulletTimeSystem.TimeScale * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal))
+                                : 1
+                            )
+                            / Time.deltaTime,
+                            -rotateParameters.verticalAngleSpeedLimit * BulletTimeSystem.TimeScale,
+                            rotateParameters.verticalAngleSpeedLimit * BulletTimeSystem.TimeScale
+                        )
+                        * Time.deltaTime,
                     -rotateParameters.downAngleLimit, rotateParameters.upAngleLimit
                 );
 
-        //计算Delta量
-        hDelta = hAngle - hOutputAngle;
-        vDelta = vAngle - vOutputAngle;
-
-    }
-
-    public void SyncRotateAngle()
-    {
-        hOutputAngle += hDelta * BulletTimeSystem.TimeScale * Time.deltaTime * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal;
-        vOutputAngle += vDelta * BulletTimeSystem.TimeScale * Time.deltaTime * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal;
-
-        if (hAngle - hOutputAngle > 0 == hDelta < 0)
-        {
-            hOutputAngle = hAngle;
-        }
-        if (vAngle - vOutputAngle > 0 == vDelta < 0)
-        {
-            vOutputAngle = vAngle;
-        }
-
         Rotate(
-            new Quaternion(0, Mathf.Sin(hOutputAngle * Mathf.PI / 360.0f), 0, Mathf.Cos(hOutputAngle * Mathf.PI / 360.0f)),
-            new Quaternion(-Mathf.Sin(vOutputAngle * Mathf.PI / 360.0f), 0, 0, Mathf.Cos(vOutputAngle * Mathf.PI / 360.0f))
+            new Quaternion(0, Mathf.Sin(hAngle * Mathf.PI / 360.0f), 0, Mathf.Cos(hAngle * Mathf.PI / 360.0f)),
+            new Quaternion(-Mathf.Sin(vAngle * Mathf.PI / 360.0f), 0, 0, Mathf.Cos(vAngle * Mathf.PI / 360.0f))
             );
+
     }
 
     /// <summary>

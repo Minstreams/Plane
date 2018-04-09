@@ -24,9 +24,20 @@ public class MenuSystem : MonoBehaviour
 
         //属性--------------------------------
         /// <summary>
-        /// 游戏菜单副物体
+        /// 游戏菜单父物体
         /// </summary>
-        public GameObject menuParent {private get;set;}
+        private GameObject menuParent
+        {
+            get
+            {
+                if (menuParentInstance == null)
+                {
+                    menuParentInstance = GameSystemRunningInstance.instance.transform.GetChild(0).gameObject;
+                }
+                return menuParentInstance;
+            }
+        }
+        private GameObject menuParentInstance;
 
         /// <summary>
         /// 菜单是否已经打开
@@ -73,9 +84,4 @@ public class MenuSystem : MonoBehaviour
         }
     }
     public Setting setting;
-
-    private void Reset()
-    {
-        setting.menuParent = transform.GetChild(0).gameObject;
-    }
 }

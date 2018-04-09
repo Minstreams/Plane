@@ -9,6 +9,17 @@ using UnityEngine;
 [RequireComponent(typeof(ICP))]
 public abstract class Core : MonoBehaviour
 {
-    protected ICP theICP { get { return GetComponent<ICP>(); } }
+    private ICP icp;
+    protected ICP theICP
+    {
+        get
+        {
+            if (icp == null)
+            {
+                icp = GetComponent<ICP>();
+            }
+            return icp;
+        }
+    }
 
 }
