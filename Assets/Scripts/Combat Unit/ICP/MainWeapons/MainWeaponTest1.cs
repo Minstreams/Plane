@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 主武器Teste1
+/// </summary>
 [AddComponentMenu("MainWeapon/Test1")]
 public class MainWeaponTest1 : MainWeapon
 {
@@ -14,13 +17,7 @@ public class MainWeaponTest1 : MainWeapon
     }
 
     private OtherParameters parameters { get { return GameSystem.weaponSystem.setting.mainWeaponList.test1.otherParameters; } }
-    protected override RotateParameters rotateParameters
-    {
-        get
-        {
-            return GameSystem.weaponSystem.setting.mainWeaponList.test1.rotateParameters;
-        }
-    }
+    protected override RotateParameters rotateParameters { get { return GameSystem.weaponSystem.setting.mainWeaponList.test1.rotateParameters; } }
 
 
 

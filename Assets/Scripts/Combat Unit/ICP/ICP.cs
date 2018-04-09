@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 集成作战单元 Integrated Combat Platform
+/// 集成作战平台 Integrated Combat Platform
 /// </summary>
 [DisallowMultipleComponent]
 [AddComponentMenu("Combat Unit/ICP")]
-public class ICP : BulletTimeSycnBehaviour
+public class ICP : CombatUnit
 {
     //型号记录-------------------------------------
     [ContextMenuItem("LoadWeaponBottom", "LoadWeaponBottom")]

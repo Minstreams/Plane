@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,8 +20,11 @@ public abstract class Weapon : ICPUnit
 
     //事件表列--------------------------------
     /// <summary>
-    /// 事件表列
+    /// 发射
     /// </summary>
-    public event System.Action onLaunch;
-
+    public event Action onLaunch;
+    /// <summary>
+    /// 命中敌人
+    /// </summary>
+    public event Action onEnemyHit;
 }

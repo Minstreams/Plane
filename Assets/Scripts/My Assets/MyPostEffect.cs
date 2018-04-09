@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 后处理特效脚本
 /// </summary>
-[AddComponentMenu("Function/My Post Effect")]
+[AddComponentMenu("My Assets/My Post Effect")]
 public class MyPostEffect : UnityStandardAssets.ImageEffects.PostEffectsBase {
     [Header("【后处理特效脚本】")]
     [Header("后处理材质")]

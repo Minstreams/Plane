@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 副武器
 /// </summary>
-public abstract class AccessaryWeapon : ICPUnit, Weapon
+public abstract class AccessaryWeapon : Weapon
 {
     //通用部署代码-----------------------
     [Header("【副武器结构】")]
