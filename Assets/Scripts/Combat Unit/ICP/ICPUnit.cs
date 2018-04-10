@@ -60,9 +60,9 @@ public abstract class ICPUnit : MonoBehaviour
                         (1 - Mathf.Pow(rotateParameters.horizontalSmoothnessRate, Time.deltaTime * BulletTimeSystem.TimeScale * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal)) :
                         1
                     )
-                    / Time.deltaTime,
-                    -rotateParameters.horizontalAngleSpeedLimit * BulletTimeSystem.TimeScale,
-                    rotateParameters.horizontalAngleSpeedLimit * BulletTimeSystem.TimeScale
+                    / Time.deltaTime / BulletTimeSystem.TimeScale,
+                    -rotateParameters.horizontalAngleSpeedLimit,
+                    rotateParameters.horizontalAngleSpeedLimit
                 )
                 * Time.deltaTime;
 
@@ -77,9 +77,9 @@ public abstract class ICPUnit : MonoBehaviour
                                 (1 - Mathf.Pow(rotateParameters.verticalSmoothnessRate, Time.deltaTime * BulletTimeSystem.TimeScale * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal))
                                 : 1
                             )
-                            / Time.deltaTime,
-                            -rotateParameters.verticalAngleSpeedLimit * BulletTimeSystem.TimeScale,
-                            rotateParameters.verticalAngleSpeedLimit * BulletTimeSystem.TimeScale
+                            / Time.deltaTime / BulletTimeSystem.TimeScale,
+                            -rotateParameters.verticalAngleSpeedLimit,
+                            rotateParameters.verticalAngleSpeedLimit
                         )
                         * Time.deltaTime,
                     -rotateParameters.downAngleLimit, rotateParameters.upAngleLimit
