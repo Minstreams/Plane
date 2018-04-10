@@ -75,13 +75,11 @@ public class WeaponSystem : MonoBehaviour
     /// 参数结构
     /// </summary>
     /// <typeparam name="T">其它参数类型</typeparam>
-    public class ParametersData<OtherParameters>
+    public class ParametersData
     {
         public GameObject prefab;
         [Header("视角控制通用参数：")]
         public ICPUnit.RotateParameters rotateParameters;
-        [Header("其它参数：")]
-        public OtherParameters otherParameters;
     }
 
 
@@ -95,15 +93,11 @@ public class WeaponSystem : MonoBehaviour
         test1
     }
 
-    //序列化列表
-    [System.Serializable]
-    public class PWBTest1 : ParametersData<WeaponBottomTest.OtherParameters> { }
-
     //结构体表列
     [System.Serializable]
     public struct WeaponBottomList
     {
-        public PWBTest1 test1;
+        public WeaponBottomTest.Parameters test1;
     }
 
 
@@ -118,15 +112,11 @@ public class WeaponSystem : MonoBehaviour
         test1
     }
 
-    //序列化列表
-    [System.Serializable]
-    public class PMWTest1 : ParametersData<MainWeaponTest1.OtherParameters> { }
-
     //结构体表列
     [System.Serializable]
     public struct MainWeaponList
     {
-        public PMWTest1 test1;
+        public MainWeaponTest1.Parameters test1;
     }
 
 
@@ -142,15 +132,11 @@ public class WeaponSystem : MonoBehaviour
         test1
     }
 
-    //序列化列表
-    [System.Serializable]
-    public class PAWTest1 : ParametersData<AccessaryWeaponTest.OtherParameters> { }
-
     //结构体表列
     [System.Serializable]
     public struct AccessaryWeaponList
     {
-        public PAWTest1 test1;
+        public AccessaryWeaponTest.Parameters test1;
     }
 
 

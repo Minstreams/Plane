@@ -8,19 +8,13 @@ public class AccessaryWeaponTest : AccessaryWeapon
 {
     //参数----------------------------------
     [System.Serializable]
-    public struct OtherParameters
+    public class Parameters : WeaponSystem.ParametersData
     {
 
     }
 
-    private OtherParameters parameters { get { return GameSystem.weaponSystem.accessaryWeaponList.test1.otherParameters; } }
-    protected override RotateParameters rotateParameters
-    {
-        get
-        {
-            return GameSystem.weaponSystem.accessaryWeaponList.test1.rotateParameters;
-        }
-    }
+    private Parameters parameters { get { return GameSystem.weaponSystem.accessaryWeaponList.test1; } }
+    protected override RotateParameters rotateParameters { get { return parameters.rotateParameters; } }
 
 
 
