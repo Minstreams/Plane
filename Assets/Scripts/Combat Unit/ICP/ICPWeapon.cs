@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 武器父类
+/// ICP搭载武器
 /// </summary>
-public abstract class Weapon : ICPUnit
+public abstract class ICPWeapon : ICPUnit, Weapon
 {
     //控制方法--------------------------------
     /// <summary>

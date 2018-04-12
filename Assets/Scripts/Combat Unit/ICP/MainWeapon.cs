@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 主武器父类
 /// </summary>
-public abstract class MainWeapon : Weapon
+public abstract class MainWeapon : ICPWeapon, Transformable
 {
     //通用部署代码-----------------------
     /// <summary>

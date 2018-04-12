@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 武器底座
 /// </summary>
-public abstract class WeaponBottom : ICPUnit
+public abstract class WeaponBottom : ICPUnit, Transformable
 {
     //通用部署代码-----------------------
     /// <summary>

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 敌机
 /// </summary>
-public class Plane : MonoBehaviour {
+public class Plane : CombatUnit {
     //不要求碰撞箱组件
     //为了性能考虑，避免使用MeshCollider
 

@@ -11,6 +11,7 @@ using UnityEngine;
 [RequireComponent(typeof(BulletTimeSystem))]
 [RequireComponent(typeof(MenuSystem))]
 [RequireComponent(typeof(WeaponSystem))]
+[RequireComponent(typeof(WarSystem))]
 public class GameSystemRunningInstance : MonoBehaviour
 {
 #if UNITY_EDITOR
@@ -240,4 +241,20 @@ public class GameSystem
         }
     }
     private static WeaponSystem.Setting weaponSystemInstance;
+
+    /// <summary>
+    /// 战争系统
+    /// </summary>
+    public static WarSystem.Setting warSystem
+    {
+        get
+        {
+            if (warSystemInstance == null)
+            {
+                warSystemInstance = GameSystemRunningInstance.instance.GetComponent<WarSystem>().setting;
+            }
+            return warSystemInstance;
+        }
+    }
+    private static WarSystem.Setting warSystemInstance;
 }
