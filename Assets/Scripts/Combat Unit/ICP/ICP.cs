@@ -13,13 +13,13 @@ public class ICP : CombatUnit
     //型号记录-------------------------------------
     [ContextMenuItem("LoadWeaponBottom", "LoadWeaponBottom")]
     [SerializeField]
-    private WeaponSystem.WeaponBottomEnum weaponBottomEnum;
+    private GameSystem.WeaponSystem.WeaponBottomEnum weaponBottomEnum;
     [ContextMenuItem("LoadMainWeapon", "LoadMainWeapon")]
     [SerializeField]
-    private WeaponSystem.MainWeaponEnum mainWeaponEnum;
+    private GameSystem.WeaponSystem.MainWeaponEnum mainWeaponEnum;
     [ContextMenuItem("LoadAccessaryWeapon", "LoadAccessaryWeapon")]
     [SerializeField]
-    private WeaponSystem.AccessaryWeaponEnum accessaryWeaponEnum;
+    private GameSystem.WeaponSystem.AccessaryWeaponEnum accessaryWeaponEnum;
 
 
 
@@ -77,7 +77,7 @@ public class ICP : CombatUnit
         if (weaponBottom != null) { toDestroy = weaponBottom.gameObject; }
 
         //加载
-        weaponBottom = GameObject.Instantiate(GameSystem.weaponSystem.getPrefab(weaponBottomEnum), transform).GetComponent<WeaponBottom>();
+        weaponBottom = GameObject.Instantiate(GameSystem.WeaponSystem.getPrefab(weaponBottomEnum), transform).GetComponent<WeaponBottom>();
         if (mainWeapon != null) mainWeapon.transform.SetParent(weaponBottom.mainWeaponPosition, false);
 
         //删除
@@ -101,7 +101,7 @@ public class ICP : CombatUnit
         if (mainWeapon != null) { toDestroy = mainWeapon.gameObject; }
 
         //加载
-        mainWeapon = GameObject.Instantiate(GameSystem.weaponSystem.getPrefab(mainWeaponEnum), weaponBottom.mainWeaponPosition).GetComponent<MainWeapon>();
+        mainWeapon = GameObject.Instantiate(GameSystem.WeaponSystem.getPrefab(mainWeaponEnum), weaponBottom.mainWeaponPosition).GetComponent<MainWeapon>();
         if (accessaryWeapon != null)
         {
             accessaryWeapon.SetPosition(mainWeapon.accessaryWeaponPositionL, mainWeapon.accessaryWeaponPositionR);
@@ -129,7 +129,7 @@ public class ICP : CombatUnit
 
 
         //加载
-        accessaryWeapon = GameObject.Instantiate(GameSystem.weaponSystem.getPrefab(accessaryWeaponEnum), transform).GetComponent<AccessaryWeapon>();
+        accessaryWeapon = GameObject.Instantiate(GameSystem.WeaponSystem.getPrefab(accessaryWeaponEnum), transform).GetComponent<AccessaryWeapon>();
         accessaryWeapon.SetPosition(mainWeapon.accessaryWeaponPositionL, mainWeapon.accessaryWeaponPositionR);
 
         //删除
@@ -195,5 +195,10 @@ public class ICP : CombatUnit
         weaponBottom.RotateAngle(hAngle, vAngle);
         mainWeapon.RotateAngle(hAngle, vAngle);
         accessaryWeapon.RotateAngle(hAngle, vAngle);
+    }
+
+    public override void Die()
+    {
+        throw new NotImplementedException();
     }
 }

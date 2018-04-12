@@ -8,10 +8,10 @@ public class ButtonMessageSender : Button
 {
     [Header("请选择按钮功能")]
     [SerializeField]
-    private GameSystemRunningInstance.ButtonMessage message;
+    private GameSystemInstance.GameSystemInstance.ButtonMessage message;
 
     protected override void OnBottonDown()
     {
-        GameSystemRunningInstance.instance.SendButtonMessage(message);
+        GameSystemInstance.GameSystemInstance.instance.SendButtonMessage(message);
     }
 }

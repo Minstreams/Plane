@@ -6,10 +6,11 @@ using UnityEngine;
 /// 作战单位单位 Combat Unit
 /// </summary>
 public abstract class CombatUnit : MonoBehaviour {
+    //结构--------------------------------------
     /// <summary>
     /// 阵营
     /// </summary>
-    public WarSystem.Camp camp;
+    public GameSystem.WarSystem.Camp camp;
 
     /// <summary>
     /// 固定参数

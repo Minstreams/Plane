@@ -11,12 +11,12 @@ public class MainWeaponTest1 : MainWeapon
 {
     //参数----------------------------------
     [System.Serializable]
-    public class Parameters : WeaponSystem.ParametersData
+    public class Parameters : GameSystem.WeaponSystem.ParametersData
     {
 
     }
 
-    private Parameters parameters { get { return GameSystem.weaponSystem.mainWeaponList.test1; } }
+    private Parameters parameters { get { return GameSystem.WeaponSystem.Setting.mainWeaponList.test1; } }
     protected override RotateParameters rotateParameters { get { return parameters.rotateParameters; } }
 
 

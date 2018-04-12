@@ -17,7 +17,7 @@ public abstract class BulletTimeSycnBehaviour : BulletTimeBehaviour
     {
         get
         {
-            return BulletTimeSystem.BulletUpdateTimeInterVal;
+            return GameSystem.BulletTimeSystem.BulletUpdateTimeInterVal;
         }
     }
 
@@ -34,10 +34,10 @@ public abstract class BulletTimeSycnBehaviour : BulletTimeBehaviour
     /// </summary>
     protected sealed override void Update()
     {
-        timer += BulletTimeSystem.TimeScale * Time.deltaTime;
-        while (timer > BulletTimeSystem.BulletUpdateTimeInterVal)
+        timer += GameSystem.BulletTimeSystem.TimeScale * Time.deltaTime;
+        while (timer > GameSystem.BulletTimeSystem.BulletUpdateTimeInterVal)
         {
-            timer -= BulletTimeSystem.BulletUpdateTimeInterVal;
+            timer -= GameSystem.BulletTimeSystem.BulletUpdateTimeInterVal;
             BulletUpdate();
         }
 

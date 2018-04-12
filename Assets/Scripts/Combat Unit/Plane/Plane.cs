@@ -6,6 +6,11 @@ using UnityEngine;
 /// 敌机
 /// </summary>
 public class Plane : CombatUnit {
+    public override void Die()
+    {
+        throw new System.NotImplementedException();
+    }
+
     //不要求碰撞箱组件
     //为了性能考虑，避免使用MeshCollider
 

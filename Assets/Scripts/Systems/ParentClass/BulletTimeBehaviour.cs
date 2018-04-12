@@ -10,7 +10,7 @@ public abstract class BulletTimeBehaviour : MonoBehaviour
     /// <summary>
     /// 按照时间拉伸系数修正后的DeltaTime
     /// </summary>
-    protected virtual float DeltaTime { get { return BulletTimeSystem.TimeScale * Time.deltaTime; } }
+    protected virtual float DeltaTime { get { return GameSystem.BulletTimeSystem.TimeScale * Time.deltaTime; } }
 
     protected abstract void Update();
 }

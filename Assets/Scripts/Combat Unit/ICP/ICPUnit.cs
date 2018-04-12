@@ -57,10 +57,10 @@ public abstract class ICPUnit : MonoBehaviour
                     (hTargetAngle - hAngle) *
                     (
                         rotateParameters.horizontalSmooth ?
-                        (1 - Mathf.Pow(rotateParameters.horizontalSmoothnessRate, Time.deltaTime * BulletTimeSystem.TimeScale * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal)) :
+                        (1 - Mathf.Pow(rotateParameters.horizontalSmoothnessRate, Time.deltaTime * GameSystem.BulletTimeSystem.TimeScale * GameSystem.BulletTimeSystem.OneDividedBulletUpdateTimeInterVal)) :
                         1
                     )
-                    / Time.deltaTime / BulletTimeSystem.TimeScale,
+                    / Time.deltaTime / GameSystem.BulletTimeSystem.TimeScale,
                     -rotateParameters.horizontalAngleSpeedLimit,
                     rotateParameters.horizontalAngleSpeedLimit
                 )
@@ -74,10 +74,10 @@ public abstract class ICPUnit : MonoBehaviour
                             (vTargetAngle - vAngle) *
                             (
                                 rotateParameters.verticalSmooth ?
-                                (1 - Mathf.Pow(rotateParameters.verticalSmoothnessRate, Time.deltaTime * BulletTimeSystem.TimeScale * BulletTimeSystem.OneDividedBulletUpdateTimeInterVal))
+                                (1 - Mathf.Pow(rotateParameters.verticalSmoothnessRate, Time.deltaTime * GameSystem.BulletTimeSystem.TimeScale * GameSystem.BulletTimeSystem.OneDividedBulletUpdateTimeInterVal))
                                 : 1
                             )
-                            / Time.deltaTime / BulletTimeSystem.TimeScale,
+                            / Time.deltaTime / GameSystem.BulletTimeSystem.TimeScale,
                             -rotateParameters.verticalAngleSpeedLimit,
                             rotateParameters.verticalAngleSpeedLimit
                         )
