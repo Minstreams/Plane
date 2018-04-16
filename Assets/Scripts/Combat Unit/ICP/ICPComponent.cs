@@ -7,8 +7,18 @@ using UnityEngine;
 /// ICP安装单位
 /// </summary>
 [DisallowMultipleComponent]
-public abstract class ICPUnit : MonoBehaviour
+public abstract class ICPComponent : MonoBehaviour
 {
+    //ICP指针
+    public ICP icp { get; private set; }
+    /// <summary>
+    /// 链接ICP
+    /// </summary>
+    public void AttachICP(ICP icp)
+    {
+        this.icp = icp;
+    }
+
     //参数---------------------------------------------
     /// <summary>
     /// 视角旋转参数
@@ -40,6 +50,8 @@ public abstract class ICPUnit : MonoBehaviour
     /// </summary>
     protected abstract RotateParameters rotateParameters { get; }
 
+
+    //变量---------------------------------------------
     private float hAngle = 0;
     private float vAngle = 0;
 
@@ -60,9 +72,9 @@ public abstract class ICPUnit : MonoBehaviour
                         (1 - Mathf.Pow(rotateParameters.horizontalSmoothnessRate, Time.deltaTime * GameSystem.BulletTimeSystem.TimeScale * GameSystem.BulletTimeSystem.OneDividedBulletUpdateTimeInterVal)) :
                         1
                     )
-                    / Time.deltaTime / GameSystem.BulletTimeSystem.TimeScale,
-                    -rotateParameters.horizontalAngleSpeedLimit,
-                    rotateParameters.horizontalAngleSpeedLimit
+                    / Time.deltaTime,
+                    -rotateParameters.horizontalAngleSpeedLimit * GameSystem.BulletTimeSystem.TimeScale,
+                    rotateParameters.horizontalAngleSpeedLimit * GameSystem.BulletTimeSystem.TimeScale
                 )
                 * Time.deltaTime;
 
@@ -77,9 +89,9 @@ public abstract class ICPUnit : MonoBehaviour
                                 (1 - Mathf.Pow(rotateParameters.verticalSmoothnessRate, Time.deltaTime * GameSystem.BulletTimeSystem.TimeScale * GameSystem.BulletTimeSystem.OneDividedBulletUpdateTimeInterVal))
                                 : 1
                             )
-                            / Time.deltaTime / GameSystem.BulletTimeSystem.TimeScale,
-                            -rotateParameters.verticalAngleSpeedLimit,
-                            rotateParameters.verticalAngleSpeedLimit
+                            / Time.deltaTime,
+                            -rotateParameters.verticalAngleSpeedLimit * GameSystem.BulletTimeSystem.TimeScale,
+                            rotateParameters.verticalAngleSpeedLimit * GameSystem.BulletTimeSystem.TimeScale
                         )
                         * Time.deltaTime,
                     -rotateParameters.downAngleLimit, rotateParameters.upAngleLimit

@@ -3,14 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[AddComponentMenu("WeaponBottom/Test")]
 public class WeaponBottomTest : WeaponBottom
 {
     //参数----------------------------------
     [System.Serializable]
     public class Parameters : GameSystem.WeaponSystem.ParametersData
     {
-
+        public float speed = 2.0f;
     }
 
     private Parameters parameters { get { return GameSystem.WeaponSystem.Setting.weaponBottomList.test1; } }
@@ -29,16 +28,10 @@ public class WeaponBottomTest : WeaponBottom
 
 
     //实现----------------------------------
-
-
-    public override void LaunchMode(bool state)
-    {
-        throw new NotImplementedException();
-    }
-
     public override void Move(float h, float v)
     {
-        throw new NotImplementedException();
+        //先这样吧，能走就行
+        transform.Translate(transform.forward * Vector3.Dot(transform.forward, icp.corePosition.right * h + icp.corePosition.forward * v));
     }
 
     protected override void Rotate(Quaternion hRotation, Quaternion vRotation)

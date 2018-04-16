@@ -9,23 +9,65 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     /// <summary>
-    /// 伤害属性
+    /// 武器引用
     /// </summary>
-    public struct Data
-    {
+    public Weapon weapon { private get; set; }
+    /// <summary>
+    /// 子弹速度
+    /// </summary>
+    public float speed { get; set; }
 
-    }
 
-    private Data data;
+
+
+
+
 
 
     private void OnTriggerEnter(Collider other)
     {
         //敌人判定&&伤害计算
-
+        DestroibleObject enemy = other.GetComponent<DestroibleObject>();
+        if (enemy == null)
+        {
+            //撞到障碍物
+            Die();
+            return;
+        }
+        if (GameSystem.WarSystem.ableToDamage(weapon.Camp, enemy.Camp))
+        {
+            //若能造成伤害
+            Hit(ref enemy);
+            return;
+        }
     }
+
+
+    private void Start()
+    {
+        Invoke("Die", GameSystem.WeaponSystem.bulletDieSeconds);
+    }
+
+
+
+    private void Hit(ref DestroibleObject enemy)
+    {
+        enemy.Damage(GameSystem.WeaponSystem.Damage(enemy.Armor, weapon.BulletData));
+        weapon.OnHittingEnemy();
+        Die();
+    }
+    private void Die()
+    {
+        CancelInvoke();
+        Destroy(gameObject);
+    }
+
+
+    //测试方法
+#if UNITY_EDITOR
     private void Reset()
     {
         GetComponent<SphereCollider>().isTrigger = true;
     }
+#endif
 }

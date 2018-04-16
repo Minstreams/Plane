@@ -14,12 +14,12 @@ public class ICP : CombatUnit
     [ContextMenuItem("LoadWeaponBottom", "LoadWeaponBottom")]
     [SerializeField]
     private GameSystem.WeaponSystem.WeaponBottomEnum weaponBottomEnum;
-    [ContextMenuItem("LoadMainWeapon", "LoadMainWeapon")]
+    [ContextMenuItem("LoadPrimaryWeapon", "LoadPrimaryWeapon")]
     [SerializeField]
-    private GameSystem.WeaponSystem.MainWeaponEnum mainWeaponEnum;
-    [ContextMenuItem("LoadAccessaryWeapon", "LoadAccessaryWeapon")]
+    private GameSystem.WeaponSystem.PrimaryWeaponEnum primaryWeaponEnum;
+    [ContextMenuItem("LoadSecondaryWeapon", "LoadSecondaryWeapon")]
     [SerializeField]
-    private GameSystem.WeaponSystem.AccessaryWeaponEnum accessaryWeaponEnum;
+    private GameSystem.WeaponSystem.SecondaryWeaponEnum secondaryWeaponEnum;
 
 
 
@@ -28,13 +28,23 @@ public class ICP : CombatUnit
     [HideInInspector, SerializeField]
     private WeaponBottom weaponBottom;
     [HideInInspector, SerializeField]
-    private MainWeapon mainWeapon;
+    private PrimaryWeapon primaryWeapon;
     [HideInInspector, SerializeField]
-    private AccessaryWeapon accessaryWeapon;
+    private SecondaryWeapon secondaryWeapon;
     /// <summary>
     /// 核心位置
     /// </summary>
-    public Transform corePosition { get { return mainWeapon.corePosition; } }
+    public override Transform corePosition { get { return primaryWeapon.corePosition; } }
+
+    [Header("装甲数据"), SerializeField]
+    private GameSystem.WeaponSystem.ArmorData armor;
+    public override GameSystem.WeaponSystem.ArmorData Armor
+    {
+        get
+        {
+            return armor;
+        }
+    }
 
 
 
@@ -58,15 +68,14 @@ public class ICP : CombatUnit
 
         //加载
         LoadWeaponBottom();
-        LoadMainWeapon();
-        LoadAccessaryWeapon();
+        LoadPrimaryWeapon();
+        LoadSecondaryWeapon();
 
         if (AfterLoad != null)
         {
             AfterLoad();
         }
     }
-
     /// <summary>
     /// 加载武器底座(子类重写该方法可加特效)
     /// </summary>
@@ -78,16 +87,16 @@ public class ICP : CombatUnit
 
         //加载
         weaponBottom = GameObject.Instantiate(GameSystem.WeaponSystem.getPrefab(weaponBottomEnum), transform).GetComponent<WeaponBottom>();
-        if (mainWeapon != null) mainWeapon.transform.SetParent(weaponBottom.mainWeaponPosition, false);
+        weaponBottom.AttachICP(this);
+        if (primaryWeapon != null) primaryWeapon.transform.SetParent(weaponBottom.primaryWeaponPosition, false);
 
         //删除
         if (toDestroy != null) DestroyImmediate(toDestroy);
     }
-
     /// <summary>
     /// 加载主武器(子类重写该方法可加特效)
     /// </summary>
-    public virtual void LoadMainWeapon()
+    public virtual void LoadPrimaryWeapon()
     {
         //错误检测
         if (weaponBottom == null)
@@ -98,26 +107,26 @@ public class ICP : CombatUnit
 
         //若已存在则延时删除
         GameObject toDestroy = null;
-        if (mainWeapon != null) { toDestroy = mainWeapon.gameObject; }
+        if (primaryWeapon != null) { toDestroy = primaryWeapon.gameObject; }
 
         //加载
-        mainWeapon = GameObject.Instantiate(GameSystem.WeaponSystem.getPrefab(mainWeaponEnum), weaponBottom.mainWeaponPosition).GetComponent<MainWeapon>();
-        if (accessaryWeapon != null)
+        primaryWeapon = GameObject.Instantiate(GameSystem.WeaponSystem.getPrefab(primaryWeaponEnum), weaponBottom.primaryWeaponPosition).GetComponent<PrimaryWeapon>();
+        primaryWeapon.AttachICP(this);
+        if (secondaryWeapon != null)
         {
-            accessaryWeapon.SetPosition(mainWeapon.accessaryWeaponPositionL, mainWeapon.accessaryWeaponPositionR);
+            secondaryWeapon.SetPosition(primaryWeapon.secondaryWeaponPositionL, primaryWeapon.secondaryWeaponPositionR);
         }
 
         //删除
         if (toDestroy != null) DestroyImmediate(toDestroy);
     }
-
     /// <summary>
     /// 加载副武器(子类重写该方法可加特效)
     /// </summary>
-    public virtual void LoadAccessaryWeapon()
+    public virtual void LoadSecondaryWeapon()
     {
         //错误检测
-        if (mainWeapon == null)
+        if (primaryWeapon == null)
         {
             Debug.LogError("必须先有主武器才能加载副武器！");
             return;
@@ -125,12 +134,13 @@ public class ICP : CombatUnit
 
         //若已存在则延时删除
         GameObject toDestroy = null;
-        if (accessaryWeapon != null) { toDestroy = accessaryWeapon.gameObject; }
+        if (secondaryWeapon != null) { toDestroy = secondaryWeapon.gameObject; }
 
 
         //加载
-        accessaryWeapon = GameObject.Instantiate(GameSystem.WeaponSystem.getPrefab(accessaryWeaponEnum), transform).GetComponent<AccessaryWeapon>();
-        accessaryWeapon.SetPosition(mainWeapon.accessaryWeaponPositionL, mainWeapon.accessaryWeaponPositionR);
+        secondaryWeapon = GameObject.Instantiate(GameSystem.WeaponSystem.getPrefab(secondaryWeaponEnum), transform).GetComponent<SecondaryWeapon>();
+        secondaryWeapon.AttachICP(this);
+        secondaryWeapon.SetPosition(primaryWeapon.secondaryWeaponPositionL, primaryWeapon.secondaryWeaponPositionR);
 
         //删除
         if (toDestroy != null) DestroyImmediate(toDestroy);
@@ -138,6 +148,8 @@ public class ICP : CombatUnit
 
     public event Action BeforeLoad;
     public event Action AfterLoad;
+
+
 
     //参数----------------------------------------
     [SerializeField]
@@ -173,8 +185,6 @@ public class ICP : CombatUnit
         hAngle += hDeltaAngle;
         vAngle = Mathf.Clamp(vAngle + vDeltaAngle, -downAngleLimit, upAngleLimit);
     }
-
-
     /// <summary>
     /// 移动控制
     /// </summary>
@@ -184,21 +194,48 @@ public class ICP : CombatUnit
     {
         weaponBottom.Move(h, v);
     }
-
+    /// <summary>
+    /// 主武器发射
+    /// </summary>
+    public void LaunchPrimaryWeapon()
+    {
+        primaryWeapon.Launch();
+    }
+    /// <summary>
+    /// 主武器停止发射
+    /// </summary>
+    public void StopLaunchPrimaryWeapon()
+    {
+        primaryWeapon.StopLaunching();
+    }
+    /// <summary>
+    /// 副武器发射
+    /// </summary>
+    public void LaunchSecondaryWeapon()
+    {
+        secondaryWeapon.Launch();
+    }
+    /// <summary>
+    /// 副武器停止发射
+    /// </summary>
+    public void StopLaunchSecondaryWeapon()
+    {
+        secondaryWeapon.StopLaunching();
+    }
 
 
     //控制下层------------------------------------
     private void Update()
     {
-        mainWeapon.corePosition.rotation = Quaternion.Euler(-vAngle, hAngle, 0);
+        primaryWeapon.corePosition.rotation = Quaternion.Euler(-vAngle, hAngle, 0);
 
         weaponBottom.RotateAngle(hAngle, vAngle);
-        mainWeapon.RotateAngle(hAngle, vAngle);
-        accessaryWeapon.RotateAngle(hAngle, vAngle);
+        primaryWeapon.RotateAngle(hAngle, vAngle);
+        secondaryWeapon.RotateAngle(hAngle, vAngle);
     }
 
     public override void Die()
     {
-        throw new NotImplementedException();
+        Destroy(gameObject);
     }
 }

@@ -22,5 +22,22 @@ public class CorePlayer : Core
         float mouseY = Input.GetAxis("Mouse Y") * verticalSensitivity;
 
         theICP.RotateAngle(mouseX, mouseY);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            theICP.LaunchPrimaryWeapon();
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            theICP.LaunchSecondaryWeapon();
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            theICP.StopLaunchPrimaryWeapon();
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            theICP.StopLaunchSecondaryWeapon();
+        }
     }
 }

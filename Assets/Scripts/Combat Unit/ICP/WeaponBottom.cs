@@ -5,14 +5,14 @@ using UnityEngine;
 /// <summary>
 /// 武器底座
 /// </summary>
-public abstract class WeaponBottom : ICPUnit, Transformable
+public abstract class WeaponBottom : ICPComponent, Transformable
 {
     //通用部署代码-----------------------
     /// <summary>
     /// 主武器位置
     /// </summary>
     [Header("【底座结构】")]
-    public Transform mainWeaponPosition;
+    public Transform primaryWeaponPosition;
 
 
 
@@ -26,11 +26,4 @@ public abstract class WeaponBottom : ICPUnit, Transformable
     /// <param name="h">水平输入量</param>
     /// <param name="v">垂直输入量</param>
     public abstract void Move(float h, float v);
-
-    /// <summary>
-    /// 切换攻城模式
-    /// </summary>
-    /// <param name="state">true代表开启攻城模式，false代表关闭攻城模式</param>
-    public abstract void LaunchMode(bool state);
-
 }

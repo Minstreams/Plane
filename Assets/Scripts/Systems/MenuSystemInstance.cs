@@ -13,6 +13,7 @@ namespace GameSystemInstance
 #if UNITY_EDITOR
         [Header("【菜单系统】")]
         public EmptyStruct 一一一一一一一一一一一一一一一一一一一一一一一一一一一;
+        private void Reset() { setting.menuParent = transform.GetChild(0).gameObject; }
 #endif
         [System.Serializable]
         public class Setting
@@ -27,7 +28,6 @@ namespace GameSystemInstance
         public Setting setting;
         private void Awake() { GameSystem.MenuSystem.Instance = this; }
 
-        private void Reset() { setting.menuParent = transform.GetChild(0).gameObject; }
     }
 }
 
@@ -47,6 +47,16 @@ namespace GameSystem
         /// </summary>
         public static GameSystemInstance.MenuSystemInstance Instance { private get; set; }
 
+        //结构--------------------------------
+        /// <summary>
+        /// 按钮信息枚举
+        /// </summary>
+        public enum ButtonMessage
+        {
+            Start,
+            Exit
+        }
+
 
 
         //变量--------------------------------
@@ -54,6 +64,10 @@ namespace GameSystem
         /// 菜单是否已经打开
         /// </summary>
         private static bool isOpen = false;
+        /// <summary>
+        /// 记录按钮信息
+        /// </summary>
+        private static bool[] buttonMessageReciver = new bool[System.Enum.GetValues(typeof(ButtonMessage)).Length];
 
 
 
@@ -81,6 +95,36 @@ namespace GameSystem
         private static void CloseMenu()
         {
             Setting.menuParent.SetActive(false);
+        }
+
+        /// <summary>
+        /// 检查按钮信息，收到则返回true
+        /// </summary>
+        /// <param name="message">要检查的信息</param>
+        /// <returns>检查按钮信息，收到则返回true</returns>
+        public static bool GetButtonMessage(ButtonMessage message)
+        {
+            if (buttonMessageReciver[(int)message])
+            {
+                buttonMessageReciver[(int)message] = false;
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 发送按钮信息
+        /// </summary>
+        /// <param name="message">信息</param>
+        public static void SendButtonMessage(ButtonMessage message)
+        {
+            buttonMessageReciver[(int)message] = true;
+        }
+        /// <summary>
+        /// 重置
+        /// </summary>
+        public static void ResetButtonMessage()
+        {
+            buttonMessageReciver.Initialize();
         }
     }
 }

@@ -1,11 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using GameSystem;
 using UnityEngine;
 
 /// <summary>
 /// 敌机
 /// </summary>
 public class Plane : CombatUnit {
+    public override WeaponSystem.ArmorData Armor
+    {
+        get
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public override Transform corePosition
+    {
+        get
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public override void Die()
     {
         throw new System.NotImplementedException();
