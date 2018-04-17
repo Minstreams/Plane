@@ -39,5 +39,10 @@ public class CorePlayer : Core
         {
             theICP.StopLaunchSecondaryWeapon();
         }
+
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        theICP.Move(h, v);
     }
 }

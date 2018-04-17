@@ -31,7 +31,7 @@ public class WeaponBottomTest : WeaponBottom
     public override void Move(float h, float v)
     {
         //先这样吧，能走就行
-        transform.Translate(transform.forward * Vector3.Dot(transform.forward, icp.corePosition.right * h + icp.corePosition.forward * v));
+        icp.transform.Translate(body.forward * Vector3.Dot(body.forward, icp.corePosition.right * h + icp.corePosition.forward * v) * Time.deltaTime * GameSystem.BulletTimeSystem.TimeScale);
     }
 
     protected override void Rotate(Quaternion hRotation, Quaternion vRotation)
