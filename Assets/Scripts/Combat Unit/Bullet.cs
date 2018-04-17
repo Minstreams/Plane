@@ -34,7 +34,7 @@ public abstract class Bullet : MonoBehaviour
 
     private void Start()
     {
-        Invoke("Die", GameSystem.WeaponSystem.bulletDieSeconds);
+        Invoke("Die", GameSystem.WeaponSystem.bulletDieSeconds / GameSystem.BulletTimeSystem.TimeScale);
     }
 
     private void Hit(ref DestroibleObject enemy)
