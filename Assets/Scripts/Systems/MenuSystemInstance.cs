@@ -8,7 +8,7 @@ namespace GameSystemInstance
     /// 菜单系统
     /// </summary>
     [DisallowMultipleComponent]
-    public class MenuSystemInstance : MonoBehaviour
+    public class MenuSystemInstance : SystemInstance<MenuSystemInstance>
     {
 #if UNITY_EDITOR
         [Header("【菜单系统】")]
@@ -26,7 +26,6 @@ namespace GameSystemInstance
         }
 
         public Setting setting;
-        private void Awake() { GameSystem.MenuSystem.Instance = this; }
 
     }
 }
@@ -45,7 +44,7 @@ namespace GameSystem
         /// <summary>
         /// 实例
         /// </summary>
-        public static GameSystemInstance.MenuSystemInstance Instance { private get; set; }
+        private static GameSystemInstance.MenuSystemInstance Instance { get { return GameSystemInstance.MenuSystemInstance.Instance; } }
 
         //结构--------------------------------
         /// <summary>

@@ -10,7 +10,8 @@ using UnityEngine;
 public abstract class ICPComponent : MonoBehaviour
 {
     //ICP指针
-    public ICP icp { get; private set; }
+    [HideInInspector]
+    public ICP icp;
     /// <summary>
     /// 链接ICP
     /// </summary>
@@ -18,6 +19,20 @@ public abstract class ICPComponent : MonoBehaviour
     {
         this.icp = icp;
     }
+
+
+    //结构---------------------------------------------
+    /// <summary>
+    /// 参数结构
+    /// </summary>
+    /// <typeparam name="T">其它参数类型</typeparam>
+    public class ParametersData
+    {
+        public GameObject prefab;
+        [Header("视角控制通用参数：")]
+        public ICPComponent.RotateParameters rotateParameters;
+    }
+
 
     //参数---------------------------------------------
     /// <summary>

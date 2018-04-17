@@ -8,9 +8,9 @@ public class SecondaryWeaponTest : SecondaryWeapon
 {
     //参数----------------------------------
     [System.Serializable]
-    public class Parameters : GameSystem.WeaponSystem.ParametersData
+    public class Parameters : WeaponParametersData
     {
-        public WeaponSystem.BulletData bulletData;
+
     }
 
     private Parameters parameters { get { return GameSystem.WeaponSystem.Setting.secondaryWeaponList.test1; } }

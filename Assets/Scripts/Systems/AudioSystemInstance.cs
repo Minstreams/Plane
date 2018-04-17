@@ -8,7 +8,7 @@ namespace GameSystemInstance
     /// 声音系统
     /// </summary>
     [DisallowMultipleComponent]
-    public class AudioSystemInstance : MonoBehaviour
+    public class AudioSystemInstance : SystemInstance<AudioSystemInstance>
     {
 #if UNITY_EDITOR
         [Header("【声音系统】")]
@@ -31,7 +31,6 @@ namespace GameSystemInstance
         }
 
         public Setting setting;
-        private void Awake() { GameSystem.AudioSystem.Instance = this; }
     }
 }
 namespace GameSystem
@@ -48,7 +47,7 @@ namespace GameSystem
         /// <summary>
         /// 实例
         /// </summary>
-        public static GameSystemInstance.AudioSystemInstance Instance { private get; set; }
+        private static GameSystemInstance.AudioSystemInstance Instance { get { return GameSystemInstance.AudioSystemInstance.Instance; } }
 
 
 

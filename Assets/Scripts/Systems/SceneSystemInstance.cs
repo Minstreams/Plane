@@ -8,7 +8,7 @@ namespace GameSystemInstance
     /// <summary>
     /// 场景管理系统
     /// </summary>
-    public class SceneSystemInstance : MonoBehaviour
+    public class SceneSystemInstance : SystemInstance<SceneSystemInstance>
     {
 #if UNITY_EDITOR
         [Header("【场景管理系统】")]
@@ -18,7 +18,6 @@ namespace GameSystemInstance
         public class Setting { }
 
         public Setting setting;
-        private void Awake() { GameSystem.SceneSystem.Instance = this; }
     }
 }
 
@@ -36,7 +35,7 @@ namespace GameSystem
         /// <summary>
         /// 实例
         /// </summary>
-        public static GameSystemInstance.SceneSystemInstance Instance { private get; set; }
+        private static GameSystemInstance.SceneSystemInstance Instance { get { return GameSystemInstance.SceneSystemInstance.Instance; } }
 
 
 
@@ -67,7 +66,7 @@ namespace GameSystem
         private static IEnumerator YieldLoadScene(string sceneName)
         {
             //加载Loading场景
-            SceneManager.LoadScene("LoadingScene",LoadSceneMode.Additive);
+            SceneManager.LoadScene("LoadingScene", LoadSceneMode.Additive);
 
             //卸载原场景
             if (!currentSceneName.Equals(""))

@@ -8,7 +8,7 @@ namespace GameSystemInstance
     /// 战争系统
     /// </summary>
     [DisallowMultipleComponent]
-    public class WarSystemInstance : MonoBehaviour
+    public class WarSystemInstance : SystemInstance<WarSystemInstance>
     {
 #if UNITY_EDITOR
         [Header("【战争系统（部队统计，阵营分配，仇恨计算）】")]
@@ -30,7 +30,6 @@ namespace GameSystemInstance
         }
 
         public Setting setting;
-        private void Awake() { GameSystem.WarSystem.Instance = this; }
     }
 }
 
@@ -49,7 +48,7 @@ namespace GameSystem
         /// <summary>
         /// 实例
         /// </summary>
-        public static GameSystemInstance.WarSystemInstance Instance { private get; set; }
+        private static GameSystemInstance.WarSystemInstance Instance { get { return GameSystemInstance.WarSystemInstance.Instance; } }
 
 
         //结构--------------------------------

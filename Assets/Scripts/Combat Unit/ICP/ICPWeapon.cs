@@ -9,8 +9,17 @@ using UnityEngine;
 /// </summary>
 public abstract class ICPWeapon : ICPComponent, Weapon
 {
+    //结构------------------------------------
+    public class WeaponParametersData : ParametersData
+    {
+        public WeaponSystem.BulletData bulletData;
+        public GameObject bulletPrefab;
+    }
+
+    //属性------------------------------------
     public abstract WeaponSystem.BulletData BulletData { get; }
     public abstract WarSystem.Camp Camp { get; }
+
 
     //控制方法--------------------------------
     /// <summary>

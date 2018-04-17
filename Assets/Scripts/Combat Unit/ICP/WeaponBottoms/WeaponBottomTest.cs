@@ -7,7 +7,7 @@ public class WeaponBottomTest : WeaponBottom
 {
     //参数----------------------------------
     [System.Serializable]
-    public class Parameters : GameSystem.WeaponSystem.ParametersData
+    public class Parameters : ParametersData
     {
         public float speed = 2.0f;
     }

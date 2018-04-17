@@ -7,7 +7,7 @@ namespace GameSystemInstance
     /// <summary>
     /// 游戏系统流程管理实例
     /// </summary>
-    [AddComponentMenu("GameSystem/GameSystem")]
+    [AddComponentMenu("Components/Game System")]
     [RequireComponent(typeof(AudioSystemInstance))]
     [RequireComponent(typeof(SceneSystemInstance))]
     [RequireComponent(typeof(BulletTimeSystemInstance))]
@@ -83,6 +83,26 @@ namespace GameSystemInstance
                     StopAllCoroutines();
                 }
                 yield return 0;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 游戏子系统父类
+    /// </summary>
+    /// <typeparam name="InstanceClass"></typeparam>
+    public class SystemInstance<InstanceClass> : MonoBehaviour
+    {
+        private static InstanceClass instance;
+        /// <summary>
+        /// 实例
+        /// </summary>
+        public static InstanceClass Instance
+        {
+            get
+            {
+                if (instance == null) instance = GameObject.FindGameObjectWithTag("GameSystem").GetComponent<InstanceClass>();
+                return instance;
             }
         }
     }

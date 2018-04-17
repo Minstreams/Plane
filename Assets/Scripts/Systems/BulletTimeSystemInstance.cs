@@ -8,7 +8,7 @@ namespace GameSystemInstance
     /// 子弹时间系统
     /// </summary>
     [DisallowMultipleComponent]
-    public class BulletTimeSystemInstance : MonoBehaviour
+    public class BulletTimeSystemInstance : SystemInstance<BulletTimeSystemInstance>
     {
 #if UNITY_EDITOR
         [Header("【子弹时间系统】")]
@@ -18,7 +18,6 @@ namespace GameSystemInstance
         public class Setting { }
 
         public Setting setting;
-        private void Awake() { GameSystem.BulletTimeSystem.Instance = this; }
 
 
 #if UNITY_EDITOR
@@ -50,7 +49,7 @@ namespace GameSystem
         /// <summary>
         /// 实例
         /// </summary>
-        public static GameSystemInstance.BulletTimeSystemInstance Instance { private get; set; }
+        private static GameSystemInstance.BulletTimeSystemInstance Instance { get { return GameSystemInstance.BulletTimeSystemInstance.Instance; } }
 
 
 

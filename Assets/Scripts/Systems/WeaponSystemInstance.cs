@@ -8,15 +8,11 @@ namespace GameSystemInstance
     /// 武器系统
     /// </summary>
     [DisallowMultipleComponent]
-    public class WeaponSystemInstance : MonoBehaviour
+    public class WeaponSystemInstance : SystemInstance<WeaponSystemInstance>
     {
 #if UNITY_EDITOR
         [Header("【武器系统】")]
         public EmptyStruct 一一一一一一一一一一一一一一一一一一一一一一一一一一一;
-        private void Reset()
-        {
-            GameSystem.WeaponSystem.Instance = this;
-        }
 #endif
         [System.Serializable]
         public class Setting
@@ -31,7 +27,7 @@ namespace GameSystemInstance
         }
 
         public Setting setting;
-        private void Awake() { GameSystem.WeaponSystem.Instance = this; }
+
 
 
 
@@ -79,7 +75,7 @@ namespace GameSystem
         /// <summary>
         /// 实例
         /// </summary>
-        public static GameSystemInstance.WeaponSystemInstance Instance { private get; set; }
+        private static GameSystemInstance.WeaponSystemInstance Instance { get { return GameSystemInstance.WeaponSystemInstance.Instance; } }
 
         //常量--------------------------------
         /// <summary>
@@ -115,6 +111,7 @@ namespace GameSystem
         /// <summary>
         /// 伤害数据结构
         /// </summary>
+        [System.Serializable]
         public class BulletData
         {
             [Header("结构伤害")]
@@ -151,17 +148,6 @@ namespace GameSystem
             }
             public float PhysicHP;
             public float ShieldHP;
-        }
-
-        /// <summary>
-        /// 参数结构
-        /// </summary>
-        /// <typeparam name="T">其它参数类型</typeparam>
-        public class ParametersData
-        {
-            public GameObject prefab;
-            [Header("视角控制通用参数：")]
-            public ICPComponent.RotateParameters rotateParameters;
         }
 
         /// <summary>
@@ -246,8 +232,8 @@ namespace GameSystem
             {
                 return new HP
                     (
-                        bullet.physicDamage * (1 - armor.ShieldDefence * (1 - bullet.ShieldPenetratingRate)) * (1 - armor.ArmorStrength * (1 - bullet.ArmourPiercingRate)),
-                        bullet.shieldDamage
+                        bullet.physicDamage * bullet.ShieldPenetratingRate * (1 - armor.ArmorStrength * (1 - bullet.ArmourPiercingRate)),
+                        bullet.shieldDamage + bullet.physicDamage * (1 - armor.ShieldDefence) * (1 - bullet.ShieldPenetratingRate)
                     );
             }
         }

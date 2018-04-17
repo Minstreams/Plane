@@ -6,22 +6,12 @@ using UnityEngine;
 /// 子弹类
 /// </summary>
 [RequireComponent(typeof(SphereCollider))]
-public class Bullet : MonoBehaviour
+public abstract class Bullet : MonoBehaviour
 {
     /// <summary>
     /// 武器引用
     /// </summary>
     public Weapon weapon { private get; set; }
-    /// <summary>
-    /// 子弹速度
-    /// </summary>
-    public float speed { get; set; }
-
-
-
-
-
-
 
 
     private void OnTriggerEnter(Collider other)
@@ -42,18 +32,16 @@ public class Bullet : MonoBehaviour
         }
     }
 
-
     private void Start()
     {
         Invoke("Die", GameSystem.WeaponSystem.bulletDieSeconds);
     }
 
-
-
     private void Hit(ref DestroibleObject enemy)
     {
         enemy.Damage(GameSystem.WeaponSystem.Damage(enemy.Armor, weapon.BulletData));
         weapon.OnHittingEnemy();
+        print(enemy + "hited!");
         Die();
     }
     private void Die()
@@ -62,7 +50,7 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-
+    protected abstract void Update();
     //测试方法
 #if UNITY_EDITOR
     private void Reset()
