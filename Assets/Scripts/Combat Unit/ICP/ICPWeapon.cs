@@ -43,8 +43,8 @@ public abstract class ICPWeapon : ICPComponent, Weapon
 
     //事件表列--------------------------------
     public event Action onLaunch;
+    public event Action onLaunching;
     public event Action onStopLaunching;
-    public event Action onEnemyHit;
     public event Action onHittingEnemy;
     public event Action<int> onValueChangeInt;
     public event Action<float> onValueChangeFloat;
